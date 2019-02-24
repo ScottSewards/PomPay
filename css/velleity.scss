@@ -1,0 +1,398 @@
+//MIXINS
+@mixin box($padding, $border, $margin){
+  padding: $padding;
+  border: $border;
+  margin: $margin;
+}
+@mixin pos($top, $right, $bottom, $left){
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+//VARIABLES - COLOURS
+$primary: #5E2B72;
+$secondary: #F1961D;
+$ternary: #3D3377;
+$background: #fff;
+$light: #fff;
+$dark: #222;
+$highlight: #F1961D;
+//VARIABLES - LAYOUT
+$font-size: 16px;
+$split-width: 50em;
+$max-width: 68.75em;
+$profiles-per-line: 3;
+
+//LAYOUT
+*{
+  user-select: none;
+  -webkit-user-select: none;
+  transition: all 0.1s linear;
+  box-sizing: border-box;
+  @include box(0, 0, 0);
+  &:focus{
+    outline: 0;
+  }
+}
+html{
+  font-size: $font-size;
+  body{
+    font-size: 1em;
+    font-kerning: normal;
+    letter-spacing: 0.01em;
+    background-color: $background;
+  }
+}
+
+//SEMANTICS
+h1, h2, h3, h4, h5, h6{
+  line-height: 1.4;
+  margin-bottom: 1em !important;
+  width: 100%
+}
+h1{
+  font-size: 1.25em;
+  text-align: center;
+}
+h2, h3, h4, h5, h6{
+  margin-top: 1em;
+}
+h2{
+  font-size: 1.2em;
+}
+h3{
+  font-size: 1.15em;
+}
+h4{
+  font-size: 1.1em;
+}
+h5{
+  font-size: 1.05em;
+}
+h6, p, button, input, textarea{
+  font-size: 1em;
+}
+button, input, textarea{
+  font-family: inherit !important;
+  padding: 1em;
+}
+a, button, input[type="button"], input[type="submit"], select{
+  cursor: pointer !important;
+}
+input, textarea{
+  user-select: auto;
+  cursor: auto !important;
+}
+textarea{
+  resize: vertical;
+  min-height: 3.5em;
+  width: 100%;
+}
+
+
+/*
+//LAYOUT
+
+html{
+  font-family: $font-family;
+  font-size: $font-size;
+  body{
+    font-kerning: normal;
+    font-size: 1em;
+    letter-spacing: 0.01em;
+  }
+}
+nav{
+ z-index: 1;
+}
+main{
+
+}
+footer{
+
+}
+*/
+
+/*
+textarea{
+  font-family: $font-family;
+  resize: vertical;
+  padding: 0.5em;
+  //min-height: 2em;
+  height: 2em;
+  //max-height: 10em;
+  width: 100%;
+}
+
+
+/*CLASSES
+.clickable{
+  cursor: pointer;
+}
+.bold{
+  font-weight: bold;
+}
+.deleted{
+  color: red;
+  &::before{
+    content: " del: ";
+  }
+}
+.error{
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: red;
+}
+*/
+.hide{
+  display: none !important;
+}
+/*
+.italics, .important{
+  font-style: italic;
+}
+.inserted{
+  color: green !important;
+  &::before{
+    content: " ins: ";
+  }
+}
+.strike{ /*USE WHEN CONTENT IS REMOVED, KEEP THIS CONTENT!
+  text-decoration: line-through;
+}
+.strike-underline{
+  text-decoration: line-through underline;
+}
+.underline{ /*USE WHEN CONTENT IS ADDED, KEEP OLD CONTENT!
+  text-decoration: underline;
+}
+.subscript, .superscript{
+  position: relative;
+  font-size: 80%;
+}
+.subscript{
+  bottom: -0.25em;
+}
+.superscript{
+  top: -0.25em;
+}
+/*ALIGNMENT
+.left{
+  text-align: left;
+}
+.centre{
+  margin: auto;
+  text-align: center;
+}
+.right{
+  text-align: right;
+}
+.justify{
+  text-align: justify;
+}
+
+
+/*GRID
+.container{
+  margin: auto;
+  max-width: 71.875em;
+}
+.grid{ /*MUST BE APPLIED TO THE PARENT OF THE ELEMENT WHERE .l-1 OR SIMILAR ARE USED
+  display: flex;
+  justify-content: space-between;
+}
+.horizontal{
+  flex-direction: row;
+}
+.vertical{
+  flex-direction: column;
+}
+[class*="xs-"]:not(:first-child), [class*="s-"]:not(:first-child), [class*="m-"]:not(:first-child), [class*="l-"]:not(:first-child), [class*="xl-"]:not(:first-child){ /*ADD SPACE BETWEEN ELEMENTS
+  margin-left: 1em;
+}
+.l-1{
+  width: 8.333%;
+}
+.l-2{
+  width: 16.666%;
+}
+.l-3{
+  width: 25%;
+}
+.l-4{
+  width: 33.333%;
+}
+.l-5{
+  width: 41.666%;
+}
+.l-6{
+  width: 50%;
+}
+.l-7{
+  width: 58.333%;
+}
+.l-8{
+  width: 66.666%;
+}
+.l-9{
+  width: 75%;
+}
+.l-10{
+  width: 83.333%;
+}
+.l-11{
+  width: 91.666%;
+}
+.l-12{
+  width: 100%;
+}
+
+
+/*TEMPLATES
+.accordion{
+  > p{
+    cursor: pointer;
+    padding: 1em 0.5em;
+    margin: 0.1em 0 0 0 !important;
+  }
+  > div{
+    padding: 1em 0.5em;
+    &.active{
+      display: block;
+    }
+    &:not(.active){
+      display: none !important;
+    }
+  }
+}
+.breadcrumbs{
+  ul{
+    li{
+      display: inline;
+      list-style-type: none;
+      @include box(1em, 0, 0);
+      &:not(:first-child){
+        margin-left: 5em;
+      }
+      &:last-child{
+        background-color: rgba(0, 0, 0, 0.25);
+        font-weight: bold;
+      }
+    }
+  }
+}
+.graph{
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  padding: 0.5em;
+  width: 100%;
+  .bar{
+
+  }
+  .freq-poly{
+
+  }
+  .line{
+
+  }
+  .pie{
+
+  }
+  .scatter{
+
+  }
+}
+.preview{ /*APPLIED TO a ON HOVER VIA jQuery
+  background-color: #fff;
+  box-shadow: 0 0 0.1em #000;
+  text-align: center;
+  text-transform: capitalize;
+  position: absolute;
+  z-index: 999;
+  top: 1.2em;
+  left: 0;
+  padding: 0.25em 0.25em;
+  width: 20em;
+}
+.profiles{
+  .profile{
+
+  }
+}
+.progress{
+
+}
+.slideshow{
+  position: relative;
+  padding-top: 42%; /*21:9 RATIO?
+  width: 100%;
+  img{
+
+  }
+}
+.tabs{
+  @include box(0, 0, 0.25em 0);
+  .options{
+    display: flex;
+    justify-content: space-around;
+    li{
+      cursor: pointer;
+      padding: 1em 0.5em;
+      margin-left: 0;
+      list-style-type: none;
+      + li{
+        margin-left: 0.1em;
+      }
+    }
+  }
+  div{
+    padding: 1em 0.5em;
+    &.active{
+      display: block;
+    }
+    &:not(.active){
+      display: none !important;
+    }
+  }
+}
+.tiles{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1em;
+  .tile{
+    width: 33%;
+    padding: 1em;
+  }
+}
+.timeline{ /*DIV
+  position: relative;
+  padding-bottom: 1.9em;
+  border-right: 2em solid rgba(0, 0, 0, 0.1);
+  > .milestone{
+    position: inherit;
+    right: -0.25em;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 1em 1em;
+    margin-top: 3.5em;
+    &:first-child{
+      margin-top: 2.5em;
+    }
+    > .title, time{
+      background-color: rgba(0, 0, 0, 0.1);
+      position: absolute;
+      padding: 0.5em 1em;
+    }
+    > .title{
+      top: -2.05em;
+      left: 0em;
+      margin: 0 !important;
+    }
+    > time{
+      bottom: -1.9em;
+      right: 1em;
+    }
+  }
+}
+*/

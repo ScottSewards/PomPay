@@ -1,0 +1,146 @@
+THIS FILE CONTAINS MARKUP THAT I WILL REUSE, DONT DELETE THIS SHIT!
+
+<!--section>
+	<h1>My Information</h1>
+	<form action="index.html" method="post">
+		<div class="field">
+			<label for="">Username</label>
+			<input type="text" name="" value="<?php echo "$AccountUsername"?>"/>
+		</div>
+		<div class="field">
+			<label for="">Email Address (<?php echo "$accountVerified"?>)</label>
+			<input type="text" name="" value="<?php echo "$AccountEmail"?>"/>
+		</div>
+		<div class="field">
+			<label for="">Password</label>
+			<input type="text" name="" value="">
+		</div>
+		<div class="field">
+			<label for="bitcoin">Bitcoin Address</label>
+			<input type="text" name="bitcoin" value="<?php if ($BitcoinWalletAddress != "") echo "$BitcoinWalletAddress"; else echo "N/A"; ?>"/>
+		</div>
+		<div class="field">
+			<label for="etherum">Ethereum Address</label>
+			<input type="text" name="etherum" value="<?php if ($EthereumWalletAddress != "") echo "$EthereumWalletAddress"; else echo "N/A"; ?>"/>
+		</div>
+		<button type="submit" name="submit">Update</button>
+	</form>
+</section-->
+
+
+
+
+<section class="subsections">
+	<!--div class="subsection">
+		<h1>Sections</h1>
+		<div class="fields">
+			<div class="field">
+				<input type="checkbox" name="show-bitcoin" checked/>
+				<label for="show-bitcoin">Show Bitcoin Address</label>
+			</div>
+			<div class="field">
+				<input type="checkbox" name="show-ethereum" checked/>
+				<label for="show-ethereum">Show Ethereum Address</label>
+			</div>
+		</div>
+	</div-->
+	<div class="subsection">
+</section>
+
+
+
+
+<!--section id="analytics">
+	<script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+	<script src="https://www.google.com/recaptcha/api.js" type="text/javascript"></script>
+	<h1>Analytics</h1>
+	<script type="text/javascript">
+		google.charts.load('current', {
+			'packages':['geochart'], 'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+		});
+		google.charts.setOnLoadCallback(drawRegionsMap);
+
+		function drawRegionsMap() {
+			var data = google.visualization.arrayToDataTable([
+				['Country', 'Popularity'], ['Germany', 200], ['United States', 300], ['Brazil', 400], ['Canada', 500], ['France', 600], ['RU', 700]
+			]);
+			var options = {};
+			var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+			chart.draw(data, options);
+		}
+	</script>
+	<div class="y">
+		<div id="regions_div" style="width: 900px; height: 500px;"></div>
+	</div>
+</section-->
+
+
+
+
+
+>form{
+	background: none;
+	display: flex;
+	padding: 0;
+	input{
+		background-color: $light;
+		width: auto;
+		&:first-child{
+			color: $dark;
+			margin-right: 1px;
+			&:hover, &:active, &:focus{
+				background-color: $dark !important;
+				color: $light;
+			}
+		}
+		&:last-child{
+			background: none;
+			color: $light;
+			&:hover{
+				background-color: $dark;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+/* THIS SCRIPT REQUIRES A SMARTCONTRACT TO GET BALANCES FROM THE BLOCKCHAIN
+var tokens = [["EtherBlue", "0x539efe69bcdd21a83efd9122571a64cc25e0282b"], ["Eltcoin", ""]]
+var address = "0xa14ae9bc94005a93934a027024eb7421215853af";
+var key = "SCUJ7T32BA6KZP6Z9YZXSR1VZUUNQKFVNQ";
+var denominator = 19;
+var balance = "0.";
+var count = items[2].length;
+
+function GetEther(){
+  var url = "https://api.etherscan.io/api?module=account&action=balance&address=" + address + "&tag=latest&apikey=" + key;
+  $.getJSON(url, function(data){
+    var items = [];
+    $.each(data, function(key, val) {items.push(val.toString());});
+    if (count < denominator) {
+      for (var i = 0; i < denominator - count - 1; i++) balance += "0";
+      $('#ethereum-balance').text(balance + items[2]);
+    }
+    else $('#ethereum-balance').text(items[2]);
+  });
+}
+
+function GetToken(token){
+  var url = "https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=" + token + "&address=" + address + "&tag=latest&apikey=" + key;
+  $.getJSON(url[0] + address + url[1] + key, function(data){
+    var items = [];
+    $.each(data, function( key, val) {items.push(val.toString());});
+    balance = "0.";
+    if (count < denominator) {
+      for (var i = 0; i < denominator - count - 1; i++) balance += "0";
+      $('#ethereum-balance').text(balance + items[2]);
+    }
+  });
+}
+*/

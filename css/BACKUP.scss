@@ -1,0 +1,631 @@
+
+//VARIABLES
+//COLOURS
+$primary: #5E2B72;
+$secondary: #2A546E;
+$ternary: #3D3377;
+$background: #ddd;
+$light: #eeeeee;
+$dark: #444444;
+$highlight: #F1961D;
+//LAYOUT
+$mobile-width: 40em;
+$profiles-per-line: 3;
+$radius: 0;
+
+//MIXINS
+@mixin box($padding, $border, $margin){
+  padding: $padding;
+  border: $border;
+  margin: $margin;
+}
+@mixin pos($top, $right, $bottom, $left){
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+@mixin img($border, $size) {
+  border-radius: $border;
+  min-height: $size !important;
+  max-height: $size !important;
+  min-width: $size !important;
+  max-width: $size !important;
+}
+
+//ELEMENTS
+*{
+  transition: all 0.1s linear;
+  box-sizing: border-box;
+  @include box(0, 0, 0);
+}
+html{
+  font-size: 16px;
+  body{
+    font-size: 1em;
+    font-family: 'Arial', Helvetica, sans-serif;
+    font-kerning: normal;
+    letter-spacing: 0.01em;
+    background-color: $background;
+  }
+}
+//SEMANTICS
+nav, main, article, section, footer{
+  display: block;
+  position: relative;
+  clear: both;
+  width: 100%;
+}
+nav{
+  z-index: 999;
+  background-color: $primary;
+  //background: linear-gradient(90deg, $primary, $secondary);
+  color: $dark;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  padding: 0 1em;
+  //border-bottom: 1px solid $dark;
+  p{
+    padding: 1em;
+  }
+  ul{
+    padding: 1em 0;
+    max-width: 68.75em;
+    >li{
+      list-style-type: none;
+      display: inline;
+      position: relative;
+      padding: 1em;
+      margin-left: 0;
+      >ul{
+        background-color: $light;
+        color: $dark;
+        display: none;
+        position: absolute;
+        top: 4em;
+        >li{
+          list-style-type: none;
+          padding: 1em;
+        }
+      }
+      &:hover{
+        ul{
+          display: block;
+        }
+      }
+      >a{
+        color: inherit;
+        text-decoration: none;
+        padding: 0;
+        &:visited{
+          color: $light;
+        }
+      }
+      &.active, &:hover{
+        background-color: #222;
+        padding: 1.5em 1em;
+      }
+      &.active:hover{
+        padding: 1em;
+      }
+      &.caution{
+        &:hover{
+          background-color: #bb2b2b !important;
+        }
+      }
+    }
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  form{
+    background: none;
+    display: flex;
+    padding: 0;
+    input{
+      background-color: $light;
+      width: auto;
+      &:first-child{
+        color: $dark;
+        margin-right: 1px;
+        &:hover, &:active, &:focus{
+          background-color: $dark !important;
+          color: $light;
+        }
+      }
+      &:last-child{
+        background: none;
+        color: $light;
+        &:hover{
+          background-color: $dark;
+        }
+      }
+    }
+  }
+}
+$divider: 50em;
+@media (max-width: $divider) {
+  nav#desktop{
+    display: none;
+  }
+  nav#mobile{
+
+  }
+}
+@media (min-width: $divider) {
+  nav#desktop{
+
+  }
+  nav#mobile{
+    display: none;
+  }
+}
+@media (max-width: 10em) {
+  nav{
+    display: block !important;
+    @include box(0, 0, 0);
+    ul{
+      @include box(0, 0, 0);
+      //display: block !important;
+      li{
+        display: block !important;
+        &:hover{
+          @include box(1em, 0, 0);
+        }
+        &.active{
+          @include box(1em, 0, 0);
+        }
+      }
+    }
+    form{
+      width: 100%;
+      input[type="search"]{
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+
+
+
+article,section{background-color:#fff;color:#222}
+
+article, section{
+  padding: 1em;
+  margin: 0 1em auto !important;
+  width: calc(100% - 2em);
+}
+article + article, article + section, section + article, section + section{
+  margin-top:1em !important
+}
+
+
+
+
+
+
+
+
+main{
+  margin-top: 4em !important;
+  min-height: calc(100vh - 8em - 2px);
+  a:link{
+    color: $primary;
+  }
+  &#editor{
+    textarea{
+      //background-color: $light;
+      //color: $dark;
+      resize: none;
+    }
+  }
+}
+@media (max-width: 40em){
+  main{margin:3em auto 1em auto}
+}
+@media (min-width: 40em){
+  main{margin:4em auto 1em auto;max-width:68.75em}
+  main.lower{margin-top:35em !important}
+}
+footer{
+  background-color: $light;
+  color: $dark;
+  padding: 1em;
+  text-align:center;
+  a:link, a:visited{
+    color: white;
+  }
+}
+//TEXT
+h1, h2, h3, h4, h5, h6{
+  line-height: 1.4;
+  margin-bottom: 0.25em;
+  width: 100%
+}
+h1{
+  font-size: 1.5em;
+  text-align: center;
+}
+h2, h3, h4, h5, h6{
+  margin-top: 1em;
+}
+h2{
+  font-size:1.4em;
+}
+h3{
+  font-size:1.3em;
+}
+h4{
+  font-size:1.2em;
+}
+h5{
+  font-size:1.1em;
+}
+h6, p, button, input{
+  font-size:1em;
+}
+
+
+//IDS
+/*
+#profile-picture-crop{
+  img{
+    width: 30em;
+  }
+  #box {
+    width: 20em;
+    height: 20em;
+    border: 0.1em solid $primary;
+    border-radius: 100%;
+    position: absolute;
+    &:not(:hover){
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+*/
+.profiles{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  .profile{
+    @media(max-width: 30em){
+      width: 100%;
+    }
+    @media(min-width: 30em) and (max-width: 50em){
+      width: calc(100% / 2);
+    }
+    @media(min-width: 50em) and (max-width: 60em){
+      width: calc(100% / 3);
+    }
+    @media(min-width: 60em){
+      width: calc(100% / 4);
+    }
+    padding: 0.25em;
+    .profile-picture{
+      position: relative;
+      img{
+        @include img(100%, 100%);
+        //clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+      }
+      a{
+        cursor: pointer;
+        background-color: $dark;
+        color: $light;
+        position: absolute;
+        bottom: 1em;
+        right: 1em;
+        left: 1em;
+        padding: 1em;
+        //clip-path: polygon(0 0, calc(100% - 1em) 0, 100% 50%, calc(100% - 1em) 100%, 0 100%);
+        text-align: center;
+        text-decoration: none;
+        &:hover{
+          background-color: $highlight;
+        }
+      }
+    }
+    p{
+      background-color: $dark;
+      color: $light !important;
+      //box-shadow: 0 0.2em 0.1em 0.1em $dark;
+      color: $light;
+      padding: 1em;
+      //clip-path: polygon(1em 0, calc(100% - 1em) 0, 100% 1em, 100% calc(100% - 1em), calc(100% - 1em) 100%, 1em 100%, 0 calc(100% - 1em), 0 1em);
+      margin-top: -0.75em;
+      text-align: center;
+    }
+  }
+}
+
+
+
+
+#breadcrumbs{
+  background: none;
+  padding: 0;
+  >ul{
+    display: flex;
+    >li{
+      background-color: $dark;
+      list-style-type: none;
+      @include box(1em 2em 1em 2em, 0, 0);
+      clip-path: polygon(0 0, calc(100% - 1em) 0, 100% 50%, calc(100% - 1em) 100%, 0 100%, 1em 50%);
+      &:first-child{
+        @include box(1em 2em 1em 1em, 0, 0);
+        clip-path: polygon(0 0, calc(100% - 1em) 0, 100% 50%, calc(100% - 1em) 100%, 0 100%) !important;
+      }
+      a{
+        color: $light;
+      }
+    }
+  }
+}
+#my-picture{
+  h2{
+    margin-top: 0 !important;
+  }
+  div#pictures{
+    display: flex;
+    div{
+      width: 50%;
+    }
+    div#profile-picture{
+      text-align: center;
+      img{
+        @include img(100%, 20em);
+      }
+      form{
+        padding-right: 1em;
+      }
+    }
+    div#past-pictures{
+      text-align: center;
+      border-left: 1px solid black;
+      display: flex;
+      flex-wrap: wrap;
+      div.picture{
+        padding: 1em;
+        width: auto;
+        img{
+          @include img(100%, 10em);
+        }
+      }
+    }
+  }
+}
+#news{
+  border-radius: 0 $radius $radius 0;
+  padding: 1em;
+  text-align: center;
+}
+#profile{
+  display: flex;
+  padding: 0;
+  #username{
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 0.5em;
+    margin: 0;
+    text-align: center;
+  }
+  img{
+    margin-right: 1em;
+  }
+  div{
+    width: 100%;
+    padding-right: 1em;
+  }
+}
+#tags{
+  padding: 0;
+  ol, ul{
+    display: flex;
+    flex-wrap: wrap;
+    li{
+      user-select: none;
+      cursor: pointer;
+      list-style-type: none;
+      background-color: #222;
+      color: #fff !important;
+      border-radius: 0 $radius $radius 0;
+      width: auto;
+      padding: 1em;
+      //padding: 1em 1.5em 1em 1em;
+      //clip-path: polygon(0 0, calc(100% - 1em) 0, 100% 50%, calc(100% - 1em) 100%, 0 100%);
+      margin: 0.25em 1em 0.25em 0;
+      &:hover{
+        background-color: $highlight;
+      }
+    }
+  }
+}
+#wallet{
+  padding: 0;
+  #income-type{
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 0.5em;
+    margin: 0;
+    text-align: center;
+  }
+  div{
+    display: flex;
+    :first-child{
+      margin-right: 1em;
+    }
+    p{
+      width: 100%;
+    }
+    img{
+      height: 10em;
+      width: 10em;
+    }
+    div{
+      display: block;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+aside{
+  z-index: 12;
+  background-color: $dark;
+  color: $light;
+  position: fixed;
+  top: 15em;
+  right: 0em;
+  //box-shadow: 0.5em 0 0 0.25em $dark;
+  text-align: center;
+}
+aside#editor{
+  .buttons{
+    display: flex;
+    &:not(:last-child){
+      border-bottom: 1px solid black;
+    }
+    .button{
+      padding: 0.25em;
+      &:hover{
+        cursor: pointer;
+        background-color: $secondary;
+      }
+      img{
+        height: 3em;
+        width: 3em;
+      }
+    }
+  }
+  ul{
+    &:not(:last-child){
+      border-bottom: 1px solid white;
+    }
+    li{
+      cursor: pointer;
+      list-style-type: none;
+      padding: 1em;
+      &:hover{
+        background-color: $primary;
+      }
+      &:focus{
+        background-color: $secondary;
+      }
+    }
+  }
+}
+aside#toc{
+  p{
+    padding: 0.5em;
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+    transform: rotate(180deg);
+  }
+}
+
+
+progress{
+  display:block;
+  height:2em;
+  width:100%;
+  padding:0.25em;
+  border:0 none;
+  background: $dark;
+}
+progress::-moz-progress-bar, progress::-webkit-progress-bar{
+  background:$light;
+}
+progress::-webkit-progress-value{
+  background:$primary;
+}
+.accordion, .tabs{
+  background-color: $light;
+  color: $dark;
+}
+.accordion > p, .tabs .options li{
+  &.active{
+    background-color: $secondary;
+    color: $light;
+  }
+  &:not(.active){
+    background-color: $dark;
+    color: $light;
+  }
+  &:hover, &:focus{
+    background-color: $primary;
+  }
+}
+.thum{
+  box-shadow: 0 0 #fff;
+  padding: 0.25em;
+  &:hover{
+    box-shadow: 0 0 0.25em 0.25em $primary;
+  }
+  &:hover{
+    box-shadow: 0 0 0.25em 0.25em $secondary;
+  }
+}
+code{
+  background-color: $dark;
+  color: $light;
+  padding: 1em;
+}
+form{
+  background-color: $light;
+  color: $dark;
+  padding: 1em 0;
+  div, fieldset{
+    padding:0;
+    border:0;
+    margin-bottom: 0.75em;
+  }
+}
+button, input, select{
+  cursor: pointer;
+  outline: none;
+  display: block;
+  background-color: $dark;
+  color: $light;
+  padding: 1em;
+  text-align:left;
+  &:hover{
+    background-color: $primary;
+  }
+  &:focus{
+    background-color: $secondary;
+  }
+}
+button{
+  //box-shadow: 0 0 0.1em $dark;
+  margin: auto;
+  &:hover{
+    //box-shadow: 0 0 $dark;
+  }
+}
+
+div.field{
+  position: relative;
+  label{
+    position: absolute;
+    background-color: $light;
+    color: $dark;
+    width: 12em;
+    padding: 1em 1em 1em 0;
+    text-align: right;
+  }
+  input{
+    margin-left: 12em;
+    width: calc(100% - 12em);
+  }
+}
