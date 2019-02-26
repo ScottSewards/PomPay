@@ -3,7 +3,7 @@
 	$usersIDCookie = $_COOKIE['usersIDCookie'];
 	$usersPasswordCookie = $_COOKIE['usersPasswordCookie'];
 
-	if((isset($usersPasswordCookie)) AND (isset($usersIDCookie))) {
+	if ((isset($usersPasswordCookie)) AND (isset($usersIDCookie)) ) { //SIGNED IN
 		header("location: dashboard.php?id=$usersIDCookie"); //SEND USER TO DASHBOARD
 	} else { //SIGNED OUT
 
@@ -24,39 +24,43 @@
 	$password = htmlspecialchars(addslashes($RAWpassword));
 	$confirmPassword = htmlspecialchars(addslashes($RAWconfirmPassword));
 	// checking if the user has clicked the submit button
-	if(isset($RAWsubmit)) {
+	if (isset($RAWsubmit)) {
 		// user has clicked submit
 		// checking to see if all forms are filled out
-		if((!empty($username)) AND !empty($email) AND !empty($password) AND !empty($confirmPassword)) {
+		if ( (!empty($username))
+		AND !empty($email)
+		AND !empty($password)
+		AND !empty($confirmPassword))  {
 			// All feilds are fields
 			// check that the email isnt already in use
 			$emailQuery = mysqli_query($con, "SELECT id FROM users WHERE email = '$email' ");
 			$rowcount = mysqli_num_rows($emailQuery);
 
-			if($rowcount == '1') {
+			if ($rowcount == '1') {
 				$error_email_already_in_use = "Email already in use.";
 			}
 			// check that the username isnt already in use
 			$emailUsernameQuery = mysqli_query($con, "SELECT id FROM users WHERE username = '$username' ");
 			$UsernameRowCount = mysqli_num_rows($emailUsernameQuery);
 
-			if($UsernameRowCount == '1') {
+			if ($UsernameRowCount == '1') {
 				$error_username_already_in_use = "Username already in use.";
 			}
+
 			// checking if the passwords match
-			if($password == $confirmPassword) {
+			if ($password == $confirmPassword) {
 				// password match create variable
 				$checkPassword = "1";
 			} else {
 				$error_password_dont_match = "Passwords do not match.";
 			}
 
-			if(($rowcount=="0") AND ($checkPassword=="1") AND ($UsernameRowCount=="0")) {
+			if ( ($rowcount=="0") AND ($checkPassword=="1") AND ($UsernameRowCount=="0") ) {
 				// CREATING A RANDOM CODE AND SENDING THE USER AN EMAIL TO VALIDATE THEIR EMAIL
 				$randomString = rand(100000000, 999999999999999999);
 				$to = "$email";
 				$subject = "Pompay Email Verification";
-				$message = "Welcome to Pompay! Below you will find the email confirmation code.<br/><br/>$randomString<hr/>Copyright (c) 2019 Copyright Holder All Rights Reserved.";
+				$message = "Welcome to Pompay! Below you will find the email confirmation code.<br/><br/>$randomString<hr/>Copyright (c) 2017 Copyright Holder All Rights Reserved.";
 				// Always set content-type when sending HTML email
 				$headers = "MIME-Version: 1.0" . "\r\n";
 				$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
@@ -88,10 +92,8 @@
 			//$error_fill_in_all_fields = "Please fill in all fields.";
 		}
 	}
-?>
-<?php
 $title = 'Sign-up';
-include_once("navigation.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 ?>
 <main>
 	<section>
@@ -131,4 +133,4 @@ include_once("navigation.php");
 			</form>
 	</section>
 </main>
-<?php include_once("footer.php"); ?>
+<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>

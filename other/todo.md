@@ -1,6 +1,5 @@
 #TODO
 Add functionality to resend email verification
-Re-add QR code to profile
 Add Facebook, Twitter, and YouTube social buttons to profile
 Fix search by tag
 Create custom checkboxes
@@ -9,6 +8,7 @@ Hide QR code if not wallet is linked
 Add profile banner
 Fix crop tool
 Add multiple projects (2 max)
+Fix
 
 #IDEAS
 Look into Block.io

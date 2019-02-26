@@ -13,9 +13,9 @@ if((isset($usersPasswordCookie)) AND (isset($usersIDCookie))) { //USER IS SIGNED
 }
 
 $title = 'Change Ethereum Address';
-include_once($_SERVER["DOCUMENT_ROOT"]."/Pomnia/navigation.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 include_once("change-code.php");
-require($_SERVER["DOCUMENT_ROOT"]."/Pomnia/connect.inc.php");
+require($_SERVER["DOCUMENT_ROOT"]."/Pompay/connect.inc.php");
 
 // UPDATE EMAIL ADDRESS
 // GETTING THE USER POST DATA
@@ -51,7 +51,6 @@ if((isset($newAddress))	AND	(isset($confirmNewAddress))	AND	(isset($password))) 
 }
 ?>
 <main>
-	<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pomnia/templates/breadcrumbs.php"); ?>
 	<section>
 		<h1>Change Ethereum Address</h1>
 		<form action="dashboard/change-ethereum-address.php" method="post">
@@ -77,4 +76,4 @@ if((isset($newAddress))	AND	(isset($confirmNewAddress))	AND	(isset($password))) 
 		<p>Support: don't have an ethereum wallet? That's okay. <a href="support.php">You can generate an ethereum wallet with us</a>!</p>
 	</section>
 </main>
-<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pomnia/footer.php"); ?>
+<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>

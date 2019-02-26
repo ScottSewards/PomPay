@@ -122,6 +122,8 @@ include_once("navigation.php");
 			<h1>MyAccount</h1>
 			<ul>
 				<li><a href="upload_crop.php">Change Profile Picture</a></li>
+				<!--li><a href="dashboard/change-profile-picture.php">Change Profile Picture</a></li-->
+				<!--li><a href="dashboard/change-profile-banner.php">Change Profile Banner</a></li-->
 				<li><a href="dashboard/change-email-address.php">Change Email Address</a></li>
 				<li><a href="dashboard/change-password.php">Change Password</a></li>
 				<li><a href="dashboard/change-bitcoin-address.php"><?php echo $BitcoinWalletAddress != "" ? "Change" : "Set"; ?> Bitcoin Address</a></li>
@@ -134,7 +136,7 @@ include_once("navigation.php");
 			<ul>
 				<li><a href="verify-email.php">Verify email address</a></li>
 				<li><a href="dashboard/change-ethereum-address.php">Add Bitcoin and/or Ethereum address(es)</a> --- direct to update details</li>
-				<li><a href="profile-editor.php?profile=<?php echo $AccountUsername?>">Complete MyProfile</a></li>
+				<li><a href="dashboard/change-profile-page.php?profile=<?php echo $AccountUsername?>">Complete MyProfile</a></li>
 			</ul>
 		</div>
 	</section>
@@ -169,14 +171,14 @@ include_once("navigation.php");
 			// NOW WE HAVE THE ID OF THE PICTURE THE USER WOULD LIEK TO SELECT WE NEED TO QUERY THE DATABASE AND GET THE IMAGE NAME
 			// OR WE COULD SEND THE NAME OVER THE URL
 			// NEED TO ADD MORE VALIDATION
-			if ( $state == "np" ) {
+			if($state == "np") {
 				// NEED TO ADD VALIDATION SO USERS CANT CHANGE THE VALUES
 				// MAKE SURE THE OWNERS ID IS EQUAL TO THE SIGNED IN COOKIE ID
 				// BEFORE UPLOADING THE OLD IMAGE TO THE USED IMAHE TABLE CHECK TO SEE IF IT IS ALREADY THERE
 				$pictire_history_query = mysqli_query($con, "SELECT id FROM used_profile_pics WHERE owners_id = '$AccountID' AND location = '$AccountPicture' ");
 				$Picture_Row_Count = mysqli_num_rows($pictire_history_query);
 
-				if ($Picture_Row_Count=="0") {
+				if($Picture_Row_Count=="0") {
 					// ADD THE OLD OLD IMAGE INTO THE PREVIOUSLY USED IMAGES TABLE
 					mysqli_query($con, "UPDATE users SET profile_picture='$pictureLocation' WHERE id='$usersIDCookie' ");
 					mysqli_query($con, "INSERT INTO used_profile_pics (owners_id, location) VALUES ('$AccountID', '$AccountPicture') ");
@@ -186,7 +188,6 @@ include_once("navigation.php");
 				} else {
 					mysqli_query($con, "UPDATE users SET profile_picture='$pictureLocation' WHERE id='$usersIDCookie' ");
 					header("location: dashboard/change-profile-picture.php");
-
 				}
 			}
 			?>

@@ -59,7 +59,6 @@ if(!empty($state)) {
 				$resultTitle = $results['title'];
 				$resultPost = $results['post'];
 				$resultProfileDate = $results['date'];
-
 				echo "
 					<div id='blog_results_title' style='width: 100%; border: solid 0px red;'>
 						<h3>$resultTitle</h3>

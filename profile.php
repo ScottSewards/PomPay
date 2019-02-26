@@ -1,78 +1,49 @@
-<?php include_once("profile-code.php");?>
 <?php
-$title = "$profileUsername";
-include_once("navigation.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
+$title = "Profile of $profileUsername";
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 ?>
 <main>
-
-
+  <section id="banner">
+    <img src="images/profile-banners/banner.jpg" alt="Banner"/>
+  </section>
   <section id="profile">
-    <img style='width: 250px' src="<?php echo $profilePictureLocation ?>" alt='<?php echo $profileUsername ?> Profile Image'/>
+    <img src="<?php echo $profilePictureLocation ?>" alt='<?php echo $profileUsername ?> Profile Picture'/>
     <div>
-      <h1 id="username"><?php echo "$profileUsername" ?></h1>
+      <h1 id="username"><?php echo $profileUsername ?></h1>
       <p><?php echo "$profileDescription" ?></p>
     </div>
   </section>
-
-<?php
-
-######################################################
-# GETTING THE LAST TWO BLOG POSTS FROM THE USER    #
-######################################################
-
-$blog_profile_username = $_REQUEST['profile'];
-$preQuery = mysqli_query($con, "SELECT id FROM users WHERE username = '$blog_profile_username' ");
-$preQueryResults = mysqli_fetch_array($preQuery);
-$profileBlogID = $preQueryResults['id'];
-
-$profile_blog_query = mysqli_query($con, "SELECT * FROM profile_blog WHERE profile_id = '$profileBlogID' ORDER BY id DESC LIMIT 2");
-
-?>
-<section>
-
-	<h1>Latest Blog</h1>
-
-	<?php
-
-	while ($results = mysqli_fetch_array($profile_blog_query)) {
-
-		$resultID2 = $results['id'];
-		$resultProfileID2 = $results['profile_id'];
-		$resultTitle2 = $results['title'];
-		$resultPost2 = $results['post'];
-		$resultProfileDate2 = $results['date'];
-
-		$lastSpace = strrpos(substr($resultPost2, 0, "550"), ' ');
+  <?php //GET LATEST TWO BLOG POSTS
+  $blog_profile_username = $_REQUEST['profile'];
+  $preQuery = mysqli_query($con, "SELECT id FROM users WHERE username = '$blog_profile_username' ");
+  $preQueryResults = mysqli_fetch_array($preQuery);
+  $profileBlogID = $preQueryResults['id'];
+  $profile_blog_query = mysqli_query($con, "SELECT * FROM profile_blog WHERE profile_id = '$profileBlogID' ORDER BY id DESC LIMIT 2");
+  ?>
+  <section>
+	  <h1>Latest Blog Posts</h1>
+    <div class="subsections">
+      <?php
+      while($results = mysqli_fetch_array($profile_blog_query)) {
+        $resultID2 = $results['id'];
+        $resultProfileID2 = $results['profile_id'];
+        $resultTitle2 = $results['title'];
+        $resultPost2 = $results['post'];
+        $resultProfileDate2 = $results['date'];
+        $lastSpace = strrpos(substr($resultPost2, 0, "550"), ' ');
         $snippit = substr($resultPost2, 0, $lastSpace) . "...";
-
-
-		echo "
-
-					<div id='blog_results_title' style='width: 100%; border: solid 0px red;'>
-
-						<h3>$resultTitle2</h3>
-
-					</div>
-
-					<div id='blog_results_post' style='width: 100%; border: solid 0px green;'>
-
-						<p>$snippit</p>
-
-					</div>
-
-					<br/>
-
-				";
-
-	}
-
-	?>
-
-<p><a href="profile-blog.php?profile=<?php echo "$profileUsername"?>">Visit blog!</a></p>
-</section>
-
-
- <!--- <section id="progress">
+        echo "
+        <div>
+          <h2>$resultTitle2</h2>
+          <p>$snippit</p>
+        </div>";
+      }
+      ?>
+    </div>
+    <p><a href="profile-blog.php?profile=<?php echo $profileUsername ?>">View blog</a></p>
+  </section>
+  <!--- <section id="progress">
     <h1>Progress</h1>
     <div id="progress-division">
       <progress id="progress-bar" min="0" value="20" max="100"></progress>
@@ -82,9 +53,7 @@ $profile_blog_query = mysqli_query($con, "SELECT * FROM profile_blog WHERE profi
     <button type="button" name="button">Contact</button>
     <button type="button" name="button">Donate</button>
   </section>
-
   -->
-
   <!--section id="wallet">
     <h1>Fundraiser</h1>
     <div id="bitcoin-address">
@@ -124,6 +93,17 @@ $profile_blog_query = mysqli_query($con, "SELECT * FROM profile_blog WHERE profi
 			</center>
 		</div>
   </section>
+  <?php
+  /*
+  if($profileEthereumAddress != "") {
+    echo "
+    <section>
+      <h1>QR Code Test</h1>
+      <img src='https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=$profileEthereumAddress&choe=UTF-8' alt='Ethereum Wallet QR Code'/>;
+    </section>"
+  }
+  */
+  ?>
   <section id="rewards">
     <h1>Rewards or Milestones?</h1>
     <div class="timeline">
@@ -139,23 +119,6 @@ $profile_blog_query = mysqli_query($con, "SELECT * FROM profile_blog WHERE profi
       </div>
     </div>
   </section>
-  <section>
-    <h1>QR Code Test</h1>
-    <?php
-    if ($profileEthereumAddress == "") {
-      echo "This account has no Ethereum wallet";
-    } else {
-      
-    }
-      /*
-      if($profileEthereumAddress != null) {
-        echo "<img src='https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=<?php echo $profileEthereumAddress?>&choe=UTF-8' alt='<?php echo $profileUsername?> Ethereum QR Code'/>"
-      } else {
-        echo "<p>There is no address</p>";
-      }
-      */
-    ?>
-  </section>
   <section id="social-media">
     <h1>Social Media</h1>
     <ul>
@@ -169,8 +132,5 @@ $profile_blog_query = mysqli_query($con, "SELECT * FROM profile_blog WHERE profi
       <li>View <?php echo "$profileUsername"?> on YouTube</li>
     </ul>
   </section>
-
-
 </main>
-<?php include_once("contents.php");?>
-<?php include_once("footer.php"); ?>
+<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>

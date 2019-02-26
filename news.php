@@ -1,6 +1,6 @@
 <?php
 $title = 'News';
-include_once("navigation.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 ?>
 <main>
   <section>
@@ -8,4 +8,4 @@ include_once("navigation.php");
     <p>We officially go live today!</p>
   </section>
 </main>
-<?php include_once("footer.php");?>
+<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>
