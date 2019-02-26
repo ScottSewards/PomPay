@@ -2,10 +2,6 @@ $(function(){
   SetRibbon();
   //CreateBreadcrumbs();
 
-  $("#box").draggable({
-    containment: '#container'
-  });
-
   //CLICKS
   $('#catagories ul li').click(function(){ //CLICK A TAG TO SEARCH
     SearchByTag($(this).text());

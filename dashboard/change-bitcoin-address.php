@@ -13,9 +13,9 @@ if((isset($usersPasswordCookie)) AND (isset($usersIDCookie))) { //USER IS SIGNED
 }
 
 $title = 'Change Bitcoin Address';
-include_once($_SERVER["DOCUMENT_ROOT"]."/Pomnia/navigation.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 include_once("change-code.php");
-require($_SERVER["DOCUMENT_ROOT"]."/Pomnia/connect.inc.php");
+require($_SERVER["DOCUMENT_ROOT"]."/Pompay/connect.inc.php");
 
 // UPDATE EMAIL ADDRESS
 // GETTING THE USER POST DATA
@@ -51,7 +51,6 @@ if ((isset($newAddress))	AND	(isset($confirmNewAddress))	AND	(isset($password)))
 }
 ?>
 <main>
-	<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pomnia/templates/breadcrumbs.php"); ?>
 	<!--?php include('templates/breadcrumbs.php')?-->
 	<section>
 		<h1>Change Bitcoin Address</h1>
@@ -78,4 +77,4 @@ if ((isset($newAddress))	AND	(isset($confirmNewAddress))	AND	(isset($password)))
 		<p>Support: don't have a bitcoin wallet? That's okay. <a href="support.php">You can generate a bitcoin wallet with us</a>!</p>
 	</section>
 </main>
-<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pomnia/footer.php"); ?>
+<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>

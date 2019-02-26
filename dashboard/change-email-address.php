@@ -13,9 +13,9 @@ if((isset($usersPasswordCookie)) AND (isset($usersIDCookie))) { //USER IS SIGNED
 }
 
 $title = 'Change Email Address';
-include_once($_SERVER["DOCUMENT_ROOT"]."/Pomnia/navigation.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 include_once("change-code.php");
-require($_SERVER["DOCUMENT_ROOT"]."/Pomnia/connect.inc.php");
+require($_SERVER["DOCUMENT_ROOT"]."/Pompay/connect.inc.php");
 
 // UPDATE EMAIL ADDRESS
 // GETTING THE USER POST DATA
@@ -51,7 +51,6 @@ if((isset($newEmail))	AND	(isset($confirmEmail))	AND	(isset($password))) {
 }
 ?>
 <main>
-	<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pomnia/templates/breadcrumbs.php"); ?>
 	<section>
 		<h1>Change Email Address</h1>
 		<form action="dashboard/change-email-address.php" method="post">
@@ -74,4 +73,4 @@ if((isset($newEmail))	AND	(isset($confirmEmail))	AND	(isset($password))) {
 		<?php echo "<br/> $error_1 $error_2 $confirmation" ?>
 	</section>
 </main>
-<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pomnia/footer.php"); ?>
+<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>

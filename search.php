@@ -1,10 +1,10 @@
-<?php require "connect.inc.php"; ?>
 <?php
-$title = "Search Results";
-include_once("navigation.php");
+require "connect.inc.php";
+$title = "Search";
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 ?>
 <main>
-  <?php include("templates/search-bar.php");?>
+  <?php include($_SERVER["DOCUMENT_ROOT"]."/Pompay/search-bar.php");?>
   <section id="users-returned">
     <h1>Search Results</h1>
     <!--p><?php $results = "this element must echo"; echo $results ?> $results but the variable is created after this point in the HTML file</p>
@@ -50,4 +50,4 @@ include_once("navigation.php");
     </div>
   </section>
 </main>
-<?php include_once("footer.php"); ?>
+<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>

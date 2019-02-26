@@ -1,33 +1,30 @@
 <?php
-	// CONNECTING TO THE DATABASE
 	require "connect.inc.php";
-	// GETTING THE USERS COOKIE ID
 	$usersIDCookie = $_COOKIE['usersIDCookie'];
-	if (	isset($usersIDCookie)	) {
-		// THE USER IS SIGNED IN
+	if(isset($usersIDCookie)) { //SIGNED IN
 		$theUsersID = $usersIDCookie;
-	} else {
-		// THE USER IS NOT SIGNED IN
+	} else { //NOT SIGNED IN
 		$theUsersID = "NA";
 	}
-	// IF THE USER HAS ALREADY SUBMIT A MESSAGE
+	//HAS USER ALREADY SUBMITTED
 	$messageSent = $_REQUEST['m'];
 
-	if(($messageSent=="s")) { //CREATE THANK YOU MESSAGE
-		$displayMessage1 = "Thank you. We will contact you soon.";
+	if(($messageSent == "s")) {
+		$displayMessage1 = "We will contact you soon.";
 	}
-	//GETTING THE FORM DATA SUBMIT BY THE USER
+	//GET FORM DATA
 	$RAWemailAddress = $_POST['email'];
 	$RAWsubject = $_POST['subject'];
 	$RAWmessage = $_POST['message'];
 	$RAWsubmit = $_POST['submit'];
-	//SECURING THAT DATA
+		// SECURING THAT DATA
 	$SECUREemailAddress = htmlspecialchars(addslashes($RAWemailAddress));
 	$SECUREsubject = htmlspecialchars(addslashes($RAWsubject));
 	$SECUREmessage = htmlspecialchars(addslashes($RAWmessage));
 		// CHECKING IF THE USER HAS CLICKED SEND
-		if(isset($RAWsubmit)) { //CHECKING THE USER HAS FILLED OUT ALL BOXES
-			if((!empty($SECUREemailAddress))	AND	(!empty($SECUREsubject))	AND	(!empty($SECUREmessage))) {
+	if ( isset($RAWsubmit) ) {
+			// CHECKING THE USER HAS FILLED OUT ALL BOXES
+		if ((!empty($SECUREemailAddress))	AND	(!empty($SECUREsubject))	AND	(!empty($SECUREmessage))) {
 				// USER HAS FILLED OUT ALL BOXES // SUBMIT SUPPORT INFORMATION TO THE DATABASE
 			$SubmitQuery = mysqli_query($con, "INSERT INTO support (usersID, email, subject, message, dateTime)
 			VALUES ('$theUsersID', '$SECUREemailAddress', '$RAWsubject', '$RAWmessage', 'DateTime') ");
@@ -38,58 +35,32 @@
 			$error1 = "Please fill out all fields.";
 		}
 	}
-?>
-<?php
 $title = 'Support';
-include_once("navigation.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 ?>
 <main>
 	<article id="faq">
 		<h1>Frequently Asked Questions</h1>
-
-
-
-		<!--div class="">
-			<script src="jq/jq.js">
-				print("Test");
-			</script>
-			<h2>Table of Contents</h2>
-			<ul>
-				<li>Item 1</li>
-				<li>Item 1</li>
-			</ul>
-		</div-->
-
+		<p><a href="#contact">Contact us via email</a> if you cannot find the answer to your inquery in the FAQ section.</p>
 		<h2>What is Pompay?</h2>
-		<p>Pompay is a crowdsfunding-membership platform focusing on cryptocurrency. This means you can setup a profile page and/or a project page to provide information about yourself, a product or whatever you wish to receive cryptocurrency.</p>
-
-		<h2>What is cryptocurrency?</h2>
-		<p>Are you sure your in the right place mate?</p>
-
-		<h2>What is a wallet?</h2>
-		<p>We use MetaMask and we recommend you do too. You can <a href="https://metamask.io/">download MetaMask on the official website.</a></p>
-
-		<h2>How do I use Pompay?</h2>
-		<p>We aim to make it as simple to use as possible. Not everyone understand cryptocurrency.</p>
+		<p>Pompay is a crowsfunding platform that allows you to setup donations, pledges, or subscriptions.</p>
+		<h2>How does Pompay work?</h2>
+		<p>It is a simple process.</p>
 		<ol>
 			<li>Send money to user wallet</li>
 			<li>Depending on select type such as monthly, funds are donated at specified time each month, weekly, whenever, or per video. its upto you</li>
 		</ol>
-
 		<h2>Why use Pompay?</h2>
 		<p>Here is a list of points why you should:</p>
 		<ul>
-			<li>5% processing fees</li>
-			<li>in-depth analytical tools</li>
+			<li>0% fees</li>
+			<li>analytical tools</li>
 		</ul>
-
 		<h2>What type of content is allowed on Pompay?</h2>
 		<p>We allow anything.</p>
-
 		<h2>What cryptocurrencies are supported?</h2>
-		<p>We support Ethereum. However, we will support for Bitcoin soon.</p>
-
-		<p><a href="#contact">Contact us via email</a> if you cannot find the answer to your inquery in the FAQ section.</p>
+		<p>We support both Bitcoin and Ethereum. This requires users to have two wallets.</p>
+		<p>Personally, we recommend users use MetaMask. <a href="https://metamask.io/">You can download it here.</a></p>
 	</article>
 	<section id="contact">
 		<h1>Contact Us</h1>
@@ -109,8 +80,8 @@ include_once("navigation.php");
 					<textarea name="message" rows="8" cols="80" placeholder="Message..." required></textarea>
 				</div>
 			</div>
-			<input type="submit" name="submit" value="Send Message"/>
+			<input type="submit" name="submit" value="Send"/>
 		</form>
 	</section>
 </main>
-<?php include_once("footer.php"); ?>
+<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>

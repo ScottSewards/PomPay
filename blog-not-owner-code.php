@@ -1,9 +1,7 @@
 <?php
-
 ###################################################
 # THE SIGNED IN USER IS NOT THE OWNER OF THE BLOG #
 ###################################################
-
 
 #############################################
 # GETTING THE BLOG POSTS FROM THE DATABASE  #
@@ -19,13 +17,12 @@ $mainPullQuery2 = mysqli_query($con, "SELECT * FROM profile_blog WHERE profile_i
 <main>
 	<section>
 		<?php
-			while($results = mysqli_fetch_array($mainPullQuery2)) {
+			while ($results = mysqli_fetch_array($mainPullQuery2)) {
 				$resultID2 = $results['id'];
 				$resultProfileID2 = $results['profile_id'];
 				$resultTitle2 = $results['title'];
 				$resultPost2 = $results['post'];
 				$resultProfileDate2 = $results['date'];
-
 				echo "
 					<div id='blog_results_title' style='width: 100%; border: solid 0px red;'>
 						<h3>$resultTitle2</h3>

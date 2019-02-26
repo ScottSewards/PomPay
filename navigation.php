@@ -1,4 +1,4 @@
-<?php include_once("head.php"); ?>
+<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/head.php"); ?>
 <nav>
 	<div>
 		<ul>

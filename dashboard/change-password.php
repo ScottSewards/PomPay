@@ -6,16 +6,16 @@ header("Pragma: no-cache");
 $usersIDCookie = $_COOKIE['usersIDCookie'];
 $usersPasswordCookie = $_COOKIE['usersPasswordCookie'];
 
-if((isset($usersPasswordCookie)) AND (isset($usersIDCookie))) { //USER IS SIGNED-IN
+if((isset($usersPasswordCookie)) AND (isset($usersIDCookie))) {
 
 } else { //USER IS NOT SIGNED-IN
 	header("location: sign-in.php");
 }
 
 $title = 'Change Password';
-include_once($_SERVER["DOCUMENT_ROOT"]."/Pomnia/navigation.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 include_once("change-code.php");
-require($_SERVER["DOCUMENT_ROOT"]."/Pomnia/connect.inc.php");
+require($_SERVER["DOCUMENT_ROOT"]."/Pompay/connect.inc.php");
 
 // UPDATE EMAIL ADDRESS
 // GETTING THE USER POST DATA
@@ -33,7 +33,7 @@ if ($state=="updated") {
 	//echo "<meta http-equiv='refresh' content='300'>";
 }
 
-if (	(isset($newPassword))	AND	(isset($confirmNewPassword))	AND	(isset($password))	) {
+if((isset($newPassword))	AND	(isset($confirmNewPassword))	AND	(isset($password))) {
 	if ($newPassword==$confirmNewPassword) {
 		// GETTING THE SIGNED IN USERS PASSWORD
 		$passwordCheck = mysqli_query($con, "SELECT password FROM users WHERE id = '$usersIDCookie' ");
@@ -56,7 +56,6 @@ if (	(isset($newPassword))	AND	(isset($confirmNewPassword))	AND	(isset($password
 }
 ?>
 <main>
-	<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pomnia/templates/breadcrumbs.php"); ?>
 	<section>
 		<h1>Change Password</h1>
 		<form action="dashboard/change-password.php" method="post">
@@ -82,4 +81,4 @@ if (	(isset($newPassword))	AND	(isset($confirmNewPassword))	AND	(isset($password
 		<p>Caution: you will be signed out so you will need to sign back in.</p>
 	</section>
 </main>
-<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pomnia/footer.php"); ?>
+<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>

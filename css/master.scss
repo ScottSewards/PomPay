@@ -16,6 +16,15 @@ nav, main, article, section, footer{
   clear: both;
   width: 100%;
 }
+section#banner{
+  position: relative;
+  padding: 0 !important;
+  margin-top: -1em;
+  margin-bottom: -1.5em;
+  img{
+    width: 100%;
+  }
+}
 nav{
   z-index: 999;
   background-color: $primary;
@@ -84,7 +93,7 @@ main{
     color: inherit;
   }
   article, section{
-    background-color: $light;
+    background-color: $background;
     @include box(1em, 0, 1em auto);
     margin-top: 1em;
     width: calc(100% - 2em);
@@ -170,7 +179,9 @@ footer{
   a, a:link, a:visited{
     color: inherit;
   }
-  div{
+  div#social-media-links{
+    display: flex;
+    justify-content: space-around;
     max-width: $max-width;
     margin: auto;
   }

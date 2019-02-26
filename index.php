@@ -1,24 +1,16 @@
 <?php
-require "connect.inc.php"; //CONNECT TO DATABASE
-$state = $_REQUEST['s']; //CHECK IF USER HAS LOGGED OUT
-if ($state == "lo") {	//SIGN OUT BY REMOVING COOKIES
+require $_SERVER["DOCUMENT_ROOT"]."/Pompay/connect.inc.php"; //CONNECT TO DATABASE
+$state = $_REQUEST['s']; //CHECK IF USER IS LOGGED OUT
+if($state == "lo") {	//SIGN OUT BY REMOVING COOKIES
 	setcookie("usersIDCookie", "", time()-86400);
 	setcookie("usersPasswordCookie", "", time()-86400);
 	header("location: index.php"); //REDIRECT TO INDEX
 }
-?>
-<?php
 $title = 'Index';
-include_once("navigation.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 ?>
 <main>
-	<?php include("templates/search-bar.php");?>
-	<section class="info">
-		<p>Welcome to Pompay. If you have any inqueries you can find our FAQ on <a href="support.php">the support page</a>.</p>
-	</section>
-	<section class="info">
-		<p><a href="profile-picture.php">Click here to test the picture crop feature!</a></p>
-	</section>
+	<?php include("search-bar.php");?>
 	<section class="hide">
 		<h1>Featured</h1>
 		<div class="pages">
@@ -31,12 +23,6 @@ include_once("navigation.php");
 				<a href="project.php">Project Test Page</a>
 			</div>
 		</div>
-	</section>
-	<section id="breadcrumbs" class="breadcrumbs">
-		<ul>
-			<li><a href="#test">Index</a></li>
-			<li><a href="#test">Link 2</a></li>
-		</ul>
 	</section>
 	<section id="featured-profiles">
 		<h1>Newest</h1>

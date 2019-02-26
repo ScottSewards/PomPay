@@ -1,23 +1,21 @@
-<?php include_once("profile-code.php");?>
 <?php
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+require $_SERVER["DOCUMENT_ROOT"]."/Pompay/connect.inc.php";
+//checking if the user is signed in this is done by checking if the two cookies are there with the users ID and password
+$usersIDCookie = $_COOKIE['usersIDCookie'];
+$usersPasswordCookie = $_COOKIE['usersPasswordCookie'];
 
-	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-	header("Cache-Control: post-check=0, pre-check=0", false);
-	header("Pragma: no-cache");
-	require "connect.inc.php";
-	//checking if the user is signed in this is done by checking if the two cookies are there with the users ID and password
-	$usersIDCookie = $_COOKIE['usersIDCookie'];
-	$usersPasswordCookie = $_COOKIE['usersPasswordCookie'];
+if((isset($usersPasswordCookie)) AND (isset($usersIDCookie))) {
 
-	if ((isset($usersPasswordCookie)) AND (isset($usersIDCookie))) { //USER IS SIGNED-IN
+} else { //USER IS NOT SIGNED-IN
+	header("location: sign-in.php");
+}
 
-	} else { //USER IS NOT SIGNED-IN
-		header("location: sign-in.php");
-	}
-
-$title = "$profileUsername";
-include_once("navigation.php");
-
+$title = "Change Profile Page";
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 ?>
 <main id="editor">
   <section id="help" class="info">
@@ -45,32 +43,19 @@ include_once("navigation.php");
         </div>
       </div>
   </section>
-  
-  
-
-  
   <section>
-  
-  
     <h1>Embed YouTube Video</h1>
-      <div class="fields">
-        <div class="field">
-          <label for="videoCode">Video ID</label>
-          <input name="videoCode" placeholder="Video ID" value=""/>
-        </div>
-
+    <div class="fields">
+	    <div class="field">
+	      <label for="videoCode">Video ID</label>
+	      <input name="videoCode" placeholder="Video ID"/>
+    	</div>
+		</div>
   </section>
-  
-
-  
-  
   <section>
-  
-	<p>Your profile is <?php echo $stateMessage ?></p><br/>
-  
-	 <input type="radio" name="activate_deactivate" value="1"> Activate<br>
-	 <input type="radio" name="activate_deactivate" value="0"> Deactivate<br>
-  
+		<p>Your profile is <?php echo $stateMessage ?></p><br/>
+	 	<input type="radio" name="activate_deactivate" value="1"> Activate<br>
+	 	<input type="radio" name="activate_deactivate" value="0"> Deactivate<br>
   </section>
   <section class="info">
     <p>Caution: You cannot undo any updates! However, expect an import-export feature soon.</p>
@@ -80,8 +65,4 @@ include_once("navigation.php");
   </section>
   </form>
 </main>
-
-<?php include("footer.php");?>
-
-<?php include_once("footer.php"); ?>
-
+<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>
