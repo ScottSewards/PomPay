@@ -7,6 +7,7 @@ if (!isset($_SESSION['random_key']) || strlen($_SESSION['random_key'])==0){
 	$_SESSION['user_file_ext']= "";
 }
 
+
 //BASIC CODE
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
@@ -32,6 +33,7 @@ $image_ext = "";	// initialise variable, do not change this.
 foreach($allowed_image_ext as $mime_type => $ext) {
     $image_ext.= strtoupper($ext)." ";
 }
+
 
 //IMAGE FUNCTIONS
 function resizeImage($image,$width,$height,$scale) {
@@ -354,6 +356,46 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
   <section>
     <h1>Previous Profile Pictures</h1>
     <?php
+	
+	// DELETE OLD PROFILE PICTURE
+	$delete = $_REQUEST['d'];
+
+	if (	!empty($delete)	) {
+		
+		
+	// QUERY TO GET THE IMAGE LOCATION
+	$deleteQuery = mysqli_query($con, "SELECT * FROM used_profile_pics WHERE id = '$delete' ");
+	$deleteQueryArray = mysqli_fetch_array($deleteQuery);
+	
+	$deleteImgOwnersID = $deleteQueryArray['owners_id'];
+	$deleteImgLoc = $deleteQueryArray['location'];
+		
+		// SECURITY CHECK IF THE USER IS THE OWNER IF THE IMAGE
+		if ($deleteImgOwnersID==$usersIDCookie) {
+		
+		
+				// DELETE THE ROW FROM THE DATABASE
+				mysqli_query($con, "DELETE FROM used_profile_pics WHERE id='$delete'; ");
+				
+				// DELETE THE IMAGE FROM THE IMAGES FOLDER
+				$imgPath = "$deleteImgLoc";
+				unlink($imgPath);
+				
+				// REFRESH THE PAGE
+				header("location: upload_crop.php");
+			
+			
+			} else {
+				
+				// NOT THE USERS IMAGE 
+				header("location: upload_crop.php");
+				
+			}
+			
+		
+	}
+	
+
     //SELECT A PREVIOUS PROFILE PICTURE
     $img = $_REQUEST['img'];
     if((!empty($img))) {
@@ -389,9 +431,24 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
       $picture_owners_id = $queryArray['owners_id'];
       $picture_location = $queryArray['location'];
       echo "
-        <a href='upload_crop.php?img=$picture_id'>
-          <img src='$picture_location' alt='broken-link'/>
-        </a>";
+       
+	   <div style='float: left; border: solid 0px red;margin-top: 5px; margin-bottom: 5px;' >
+	   
+		   <div style='; border: solid 0px black'>
+		   
+			   <a href='upload_crop.php?img=$picture_id'>
+				<img src='$picture_location' alt='broken-link'/>
+			   </a>
+			</div>
+			<div style='; border: solid 0px black'>
+			
+				<a href='upload_crop.php?d=$picture_id'>Delete</a>
+			
+			</div>
+		
+		</div>
+		
+		";
     }
     if(!empty($_REQUEST['c']))
       $confirm = "Your profile picture has been updated";
@@ -400,6 +457,7 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
   <?php
   if($confirm != "")
     echo "
+	
     <section class='info'>
       <p>$confirm</p>
     </section>";
