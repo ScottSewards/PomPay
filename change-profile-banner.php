@@ -231,8 +231,9 @@ if(isset($_POST["upload"])) {
 
 		}
 
-		header("location:".$_SERVER["PHP_SELF"]);
-		exit();
+		header("location: change-profile-banner.php?c=confirm");
+		//header("location:".$_SERVER["PHP_SELF"]);
+		//exit();
 	}
 }
 
@@ -248,7 +249,9 @@ if (isset($_POST["upload_thumbnail"]) && strlen($large_photo_exists)>0) {
 	$scale = $thumb_width/$w;
 	$cropped = resizeThumbnailImage($thumb_image_location, $large_image_location,$w,$h,$x1,$y1,$scale);
 	//Reload the page again to view the thumbnail
-	header("location:".$_SERVER["PHP_SELF"]);
+	
+	session_destroy(); 
+	header("location: change-profile-banner.php?c=confirm");
 	exit();
 }
 
@@ -262,7 +265,9 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 	if (file_exists($thumb_image_location)) {
 		unlink($thumb_image_location);
 	}
-	header("location:".$_SERVER["PHP_SELF"]);
+	
+	session_destroy(); 
+	header("location: change-profile-banner.php?c=confirm");
 	exit();
 }
 ?>
@@ -396,15 +401,7 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 	}
 	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
     //SELECT A PREVIOUS PROFILE PICTURE
     $img = $_REQUEST['img'];
@@ -444,10 +441,10 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
        
 	   <div style='float: left; border: solid 0px red;margin-top: 5px; margin-bottom: 5px;' >
 	   
-		   <div style='; border: solid 0px black'>
+		   <div style='border: solid 0px black'>
 		   
 			   <a href='change-profile-banner.php?img=$picture_id'>
-				<img src='$picture_location' alt='broken-link'/>
+				<img style='width: 500px' src='$picture_location' alt='broken-link'/>
 			   </a>
 			</div>
 			<div style='; border: solid 0px black'>
@@ -461,19 +458,7 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 		";
     }
     if(!empty($_REQUEST['c']))
-      $confirm = "Your profile picture has been updated";
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+      $confirm = "Your profile banner has been updated";
   
     ?>
   </section>
