@@ -122,6 +122,7 @@ include_once("navigation.php");
 			<h1>MyAccount</h1>
 			<ul>
 				<li><a href="upload_crop.php">Change Profile Picture</a></li>
+				<li><a href="change-profile-banner.php">Change Profile banner</a></li>
 				<!--li><a href="dashboard/change-profile-picture.php">Change Profile Picture</a></li-->
 				<!--li><a href="dashboard/change-profile-banner.php">Change Profile Banner</a></li-->
 				<li><a href="dashboard/change-email-address.php">Change Email Address</a></li>
