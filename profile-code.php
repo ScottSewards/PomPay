@@ -22,6 +22,7 @@ $socialLinksYouTube = $queryResults['youtube'];
 $queryTwo = mysqli_query($con, "SELECT * FROM users WHERE id = '$profileOwnersID' ");
 $queryResultsTwo = mysqli_fetch_array($queryTwo);
 $profilePictureLocation = $queryResultsTwo['profile_picture'];
+$profileBannerLocation = $queryResultsTwo['profile_banner'];
 $UsersUsername = $queryResultsTwo['username'];
 $profileEthereumAddress = $queryResultsTwo['ethereum_address'];
 $profileBitcoinAddress = $queryResultsTwo['bitcoin_address'];

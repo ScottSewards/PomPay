@@ -5,7 +5,7 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 ?>
 <main>
   <section id="banner">
-    <img src="images/profile-banners/banner.png" alt="Banner"/>
+    <img src="<?php echo $profileBannerLocation ?>" alt="Banner"/>
   </section>
   <section id="profile">
     <img src="<?php echo $profilePictureLocation ?>" alt='<?php echo $profileUsername ?> Profile Picture'/>

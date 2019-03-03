@@ -16,16 +16,16 @@ require "connect.inc.php";
 $title = 'Change Profile Picture';
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 $usersIDCookie = $_COOKIE['usersIDCookie'];
-$upload_dir = "images/profile-pictures"; 				// The directory for the images to be saved in
+$upload_dir = "images/profile-banners"; 	// The directory for the images to be saved in
 $upload_path = $upload_dir."/";				// The path to where the image will be saved
-$large_image_prefix = "resize_"; 			// The prefix name to large image
-$thumb_image_prefix = "thumbnail_";			// The prefix name to the thumb image
+$large_image_prefix = "original_"; 			// The prefix name to large image
+$thumb_image_prefix = "banner_";			// The prefix name to the thumb image
 $large_image_name = $large_image_prefix.$_SESSION['random_key'];     // New name of the large image (append the timestamp to the filename)
 $thumb_image_name = $thumb_image_prefix.$_SESSION['random_key'];     // New name of the thumbnail image (append the timestamp to the filename)
 $max_file = "5"; 							// Maximum file size in MB
-$max_width = "1000";						// Max width allowed for the large image
-$thumb_width = "250";						// Width of thumbnail image
-$thumb_height = "250";						// Height of thumbnail image
+$max_width = "1500";						// Max width allowed for the large image
+$thumb_width = "1000";						// Width of thumbnail image
+$thumb_height = "300";						// Height of thumbnail image
 // Only one of these image types should be allowed for upload
 $allowed_image_types = array('image/pjpeg'=>"jpg",'image/jpeg'=>"jpg",'image/jpg'=>"jpg",'image/png'=>"png",'image/x-png'=>"png",'image/gif'=>"gif");
 $allowed_image_ext = array_unique($allowed_image_types); // do not change this
@@ -210,15 +210,15 @@ if(isset($_POST["upload"])) {
 
 		$currentPictureQuery = mysqli_query($con, "SELECT * FROM users WHERE id = '$usersIDCookie' ");
 		$currentPictureArray = mysqli_fetch_array($currentPictureQuery);
-		$currentImageLoc = $currentPictureArray['profile_picture'];
+		$currentImageLoc = $currentPictureArray['profile_banner'];
 
 		// NOW TO REFRESH THE PAGE
-		mysqli_query($con, "UPDATE users SET profile_picture='$thumb_image_location' WHERE id='$usersIDCookie' ");
+		mysqli_query($con, "UPDATE users SET profile_banner='$thumb_image_location' WHERE id='$usersIDCookie' ");
 
 		// CHECK TO SEE IF THE CURRENT IMAGE IS ALREADY IN THE USED PROFILE PICTURES TABLE
-		$countQuery = mysqli_query($con, "SELECT * FROM used_profile_pics WHERE location = '$currentImageLoc' AND owners_id = '$usersIDCookie' ");
+		$countQuery = mysqli_query($con, "SELECT * FROM old_profile_banners WHERE location = '$currentImageLoc' AND owners_id = '$usersIDCookie' ");
 		$countQueryArray = mysqli_fetch_array($countQuery);
-		$currentImageLoc2 = $currentPictureArray2['profile_picture'];
+		$currentImageLoc2 = $currentPictureArray2['profile_banner'];
 
 
 		$numRows = mysqli_num_rows($countQuery);
@@ -227,7 +227,7 @@ if(isset($_POST["upload"])) {
 
 
 			// ADD CURRENT PICTURE TO THE OLD PROFILE PICTURES
-			mysqli_query($con, "INSERT INTO used_profile_pics (owners_id, location) values ('$usersIDCookie', '$currentImageLoc') ");
+			//mysqli_query($con, "INSERT INTO old_profile_banners (owners_id, location) values ('$usersIDCookie', '$currentImageLoc') ");
 
 		}
 
@@ -268,7 +268,7 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 ?>
 <main>
   <section>
-    <h1>Post New Profile Picture</h1>
+    <h1>Post New Profile Banner</h1>
     <?php
     //Only display the javacript if an image has been uploaded
     if(strlen($large_photo_exists)>0){
@@ -354,7 +354,7 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
     <?php } ?>
   </section>
   <section>
-    <h1>Previous Profile Pictures</h1>
+    <h1>Previous Profile Banner</h1>
     <?php
 	
 	// DELETE OLD PROFILE PICTURE
@@ -364,7 +364,7 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 		
 		
 	// QUERY TO GET THE IMAGE LOCATION
-	$deleteQuery = mysqli_query($con, "SELECT * FROM used_profile_pics WHERE id = '$delete' ");
+	$deleteQuery = mysqli_query($con, "SELECT * FROM old_profile_banners WHERE id = '$delete' ");
 	$deleteQueryArray = mysqli_fetch_array($deleteQuery);
 	
 	$deleteImgOwnersID = $deleteQueryArray['owners_id'];
@@ -375,20 +375,20 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 		
 		
 				// DELETE THE ROW FROM THE DATABASE
-				mysqli_query($con, "DELETE FROM used_profile_pics WHERE id='$delete'; ");
+				mysqli_query($con, "DELETE FROM old_profile_banners WHERE id='$delete'; ");
 				
 				// DELETE THE IMAGE FROM THE IMAGES FOLDER
 				$imgPath = "$deleteImgLoc";
 				unlink($imgPath);
 				
 				// REFRESH THE PAGE
-				header("location: upload_crop.php");
+				header("location: change-profile-banner.php");
 			
 			
 			} else {
 				
 				// NOT THE USERS IMAGE 
-				header("location: upload_crop.php");
+				header("location: change-profile-banner.php");
 				
 			}
 			
@@ -396,36 +396,46 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 	}
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
     //SELECT A PREVIOUS PROFILE PICTURE
     $img = $_REQUEST['img'];
     if((!empty($img))) {
       //CHECK IF THE IMAGE IS OWNED BY THE USER
       //CHECK IF THE USER CHANGED THE IMAGE ID IN THE URL
-      $securityQuery = mysqli_query($con, "SELECT * FROM used_profile_pics WHERE id = '$img' ");
+      $securityQuery = mysqli_query($con, "SELECT * FROM old_profile_banners WHERE id = '$img' ");
       $securityQueryArray = mysqli_fetch_array($securityQuery);
       $securityID = $securityQueryArray['owners_id'];
       $imageLocation = $securityQueryArray['location'];
       if($usersIDCookie == $securityID) {
     		$currentPictureQuery2 = mysqli_query($con, "SELECT * FROM users WHERE id = '$usersIDCookie' ");
     		$currentPictureArray2 = mysqli_fetch_array($currentPictureQuery2);
-    		$currentImageLoc2 = $currentPictureArray2['profile_picture'];
+    		$currentImageLoc2 = $currentPictureArray2['profile_banner'];
     		// CHECK TO SEE IF THE CURRENT IMAGE IS ALREADY IN THE USED PROFILE PICTURES TABLE
-    		$countQuery = mysqli_query($con, "SELECT * FROM used_profile_pics WHERE location = '$currentImageLoc2' AND owners_id = '$usersIDCookie' ");
+    		$countQuery = mysqli_query($con, "SELECT * FROM old_profile_banners WHERE location = '$currentImageLoc2' AND owners_id = '$usersIDCookie' ");
     		$countQueryArray = mysqli_fetch_array($countQuery);
     		$numRows = mysqli_num_rows($countQuery);
 
     		if ($numRows=='0') {
     			// ADD CURRENT PICTURE TO THE OLD PROFILE PICTURES
-    			mysqli_query($con, "INSERT INTO used_profile_pics (owners_id, location) values ('$usersIDCookie', '$currentImageLoc2') ");
+    			mysqli_query($con, "INSERT INTO old_profile_banners (owners_id, location) values ('$usersIDCookie', '$currentImageLoc2') ");
     		}
     		// UPDATE USERS PROFILE PICTURE
-    		mysqli_query($con, "UPDATE users SET profile_picture = '$imageLocation' WHERE id = '$usersIDCookie' ");
-    		header("location: upload_crop.php?c=confirm");
+    		mysqli_query($con, "UPDATE users SET profile_banner = '$imageLocation' WHERE id = '$usersIDCookie' ");
+    		header("location: change-profile-banner.php?c=confirm");
       } else {
         echo "<br/>Error!";
       }
     }    //ADD OLD PROFILE PICTURES
-    $oldProfileQuery = mysqli_query($con, "SELECT * FROM used_profile_pics WHERE owners_id = '$usersIDCookie'");
+    $oldProfileQuery = mysqli_query($con, "SELECT * FROM old_profile_banners WHERE owners_id = '$usersIDCookie'");
     while($queryArray = mysqli_fetch_array($oldProfileQuery)) {
       $picture_id = $queryArray['id'];
       $picture_owners_id = $queryArray['owners_id'];
@@ -436,13 +446,13 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 	   
 		   <div style='; border: solid 0px black'>
 		   
-			   <a href='upload_crop.php?img=$picture_id'>
+			   <a href='change-profile-banner.php?img=$picture_id'>
 				<img src='$picture_location' alt='broken-link'/>
 			   </a>
 			</div>
 			<div style='; border: solid 0px black'>
 			
-				<a href='upload_crop.php?d=$picture_id'>Delete</a>
+				<a href='change-profile-banner.php?d=$picture_id'>Delete</a>
 			
 			</div>
 		
@@ -452,6 +462,19 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
     }
     if(!empty($_REQUEST['c']))
       $confirm = "Your profile picture has been updated";
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
     ?>
   </section>
   <?php
