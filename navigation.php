@@ -2,17 +2,17 @@
 <nav>
 	<div>
 		<ul>
-			<li id="index"><a href="./index.php">Index</a></li>
-			<li id="support"><a href="./support.php">Support</a></li>
-			<li id="options"><a href="./options.php">Options</a></li>
+			<li id="index"><a href="index.php">Index</a></li>
+			<li id="support"><a href="support.php">Support</a></li>
+			<li id="options"><a href="options.php">Options</a></li>
 		</ul>
-		<!--form id="search" action="search.php" method="post">
+		<!--form id="search" action="search.php" method="post"> //OLD SEARCH BAR
 			<input id="search-bar" type="text" name="search" placeholder="Search..."/>
 			<input id="search-submit" type="submit" name="submit" value="Search!"/>
 		</form-->
-		<ul id="local">
+		<ul>
 			<?php
-			if((isset($usersPasswordCookie)) AND (isset($usersIDCookie))) {
+			if((isset($userPasswordCookie)) AND (isset($userIDCookie))) {
 				echo "<li id='dashboard'><a href='dashboard.php'>Dashboard</a></li>
 				<li id='sign-out' class='caution'><a href='index.php?s=lo'>Sign-out</a></li>";
 			} else {

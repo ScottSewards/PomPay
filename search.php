@@ -1,19 +1,15 @@
 <?php
-require "connect.inc.php";
 $title = "Search";
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 ?>
 <main>
   <?php include($_SERVER["DOCUMENT_ROOT"]."/Pompay/search-bar.php");?>
-  <section id="users-returned">
+  <section id="search-reults">
     <h1>Search Results</h1>
-    <!--p><?php $results = "this element must echo"; echo $results ?> $results but the variable is created after this point in the HTML file</p>
-    <p>Also, fix the profile picture ratio, this will fix the horrible alignment of profiles</p-->
     <div class="profiles">
     <?php
       // GETTING THE SEARCH QUERY FROM THE SEARCH BAR // THIS WILL BE COMING FROM THE INDEX.PHP AND SEARCH.PHP
-      $RAWusersSearchQuery = $_POST['search'];
-      $usersSearchQuery = htmlspecialchars(addslashes($RAWusersSearchQuery));
+      $usersSearchQuery = htmlspecialchars(addslashes($_POST['search']));
       // TAKE THE USERS SEARCH KEYWORD
       // SEARCH PROFILE USERNAMES/DESCRIPTION/KEYWORDS FOR WORDS THAT ARE *LIKE* THE SEARCH QUERY
       // WILL HAVE TO ADD THE CONTENT CREATORS USERNAME TO THE PROFILE TABLE BUT WHEN THE USER UPDATES THEIR USERNAME

@@ -1,20 +1,19 @@
 <?php
+$title = 'Change Profile Picture';
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
+
 error_reporting (E_ALL ^ E_NOTICE);
-session_start(); //Do not remove this
+session_start(); //DO NOT REMOVE
 //only assign a new timestamp if the session variable is empty
 if (!isset($_SESSION['random_key']) || strlen($_SESSION['random_key'])==0){
     $_SESSION['random_key'] = strtotime(date('Y-m-d H:i:s')); //assign the timestamp to the session variable
 	$_SESSION['user_file_ext']= "";
 }
-
-
 //BASIC CODE
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 require "connect.inc.php";
-$title = 'Change Profile Picture';
-include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 $usersIDCookie = $_COOKIE['usersIDCookie'];
 $upload_dir = "images/profile-banners"; 	// The directory for the images to be saved in
 $upload_path = $upload_dir."/";				// The path to where the image will be saved
@@ -33,7 +32,6 @@ $image_ext = "";	// initialise variable, do not change this.
 foreach($allowed_image_ext as $mime_type => $ext) {
     $image_ext.= strtoupper($ext)." ";
 }
-
 
 //IMAGE FUNCTIONS
 function resizeImage($image,$width,$height,$scale) {
@@ -249,8 +247,8 @@ if (isset($_POST["upload_thumbnail"]) && strlen($large_photo_exists)>0) {
 	$scale = $thumb_width/$w;
 	$cropped = resizeThumbnailImage($thumb_image_location, $large_image_location,$w,$h,$x1,$y1,$scale);
 	//Reload the page again to view the thumbnail
-	
-	session_destroy(); 
+
+	session_destroy();
 	header("location: change-profile-banner.php?c=confirm");
 	exit();
 }
@@ -265,8 +263,8 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 	if (file_exists($thumb_image_location)) {
 		unlink($thumb_image_location);
 	}
-	
-	session_destroy(); 
+
+	session_destroy();
 	header("location: change-profile-banner.php?c=confirm");
 	exit();
 }
@@ -361,48 +359,48 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
   <section>
     <h1>Previous Profile Banner</h1>
     <?php
-	
+
 	// DELETE OLD PROFILE PICTURE
 	$delete = $_REQUEST['d'];
 
 	if (	!empty($delete)	) {
-		
-		
+
+
 	// QUERY TO GET THE IMAGE LOCATION
 	$deleteQuery = mysqli_query($con, "SELECT * FROM old_profile_banners WHERE id = '$delete' ");
 	$deleteQueryArray = mysqli_fetch_array($deleteQuery);
-	
+
 	$deleteImgOwnersID = $deleteQueryArray['owners_id'];
 	$deleteImgLoc = $deleteQueryArray['location'];
-		
+
 		// SECURITY CHECK IF THE USER IS THE OWNER IF THE IMAGE
 		if ($deleteImgOwnersID==$usersIDCookie) {
-		
-		
+
+
 				// DELETE THE ROW FROM THE DATABASE
 				mysqli_query($con, "DELETE FROM old_profile_banners WHERE id='$delete'; ");
-				
+
 				// DELETE THE IMAGE FROM THE IMAGES FOLDER
 				$imgPath = "$deleteImgLoc";
 				unlink($imgPath);
-				
+
 				// REFRESH THE PAGE
 				header("location: change-profile-banner.php");
-			
-			
+
+
 			} else {
-				
-				// NOT THE USERS IMAGE 
+
+				// NOT THE USERS IMAGE
 				header("location: change-profile-banner.php");
-				
+
 			}
-			
-		
+
+
 	}
-	
 
 
-	
+
+
     //SELECT A PREVIOUS PROFILE PICTURE
     $img = $_REQUEST['img'];
     if((!empty($img))) {
@@ -438,34 +436,34 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
       $picture_owners_id = $queryArray['owners_id'];
       $picture_location = $queryArray['location'];
       echo "
-       
+
 	   <div style='float: left; border: solid 0px red;margin-top: 5px; margin-bottom: 5px;' >
-	   
+
 		   <div style='border: solid 0px black'>
-		   
+
 			   <a href='change-profile-banner.php?img=$picture_id'>
 				<img style='width: 500px' src='$picture_location' alt='broken-link'/>
 			   </a>
 			</div>
 			<div style='; border: solid 0px black'>
-			
+
 				<a href='change-profile-banner.php?d=$picture_id'>Delete</a>
-			
+
 			</div>
-		
+
 		</div>
-		
+
 		";
     }
     if(!empty($_REQUEST['c']))
       $confirm = "Your profile banner has been updated";
-  
+
     ?>
   </section>
   <?php
   if($confirm != "")
     echo "
-	
+
     <section class='info'>
       <p>$confirm</p>
     </section>";

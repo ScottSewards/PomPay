@@ -2,12 +2,11 @@
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
-//CONNECTING TO THE DATABASE
-require "connect.inc.php";
-//USERS COOKIE INFORMATION
-$usersIDCookie = $_COOKIE['usersIDCookie'];
-//GETTING THE USERS EMAIL CODE FROM THE DATABASE
-$codeQuery = mysqli_query($con, "SELECT * FROM users WHERE id = '$usersIDCookie' ");
+$title = 'Verify Email';
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
+$error = "";
+$userIDCookie = $_COOKIE['usersIDCookie'];
+$codeQuery = mysqli_query($con, "SELECT * FROM users WHERE id = '$userIDCookie' ");
 $codeArray = mysqli_fetch_array($codeQuery);
 $emailCode = $codeArray['email_code'];
 $verified_email = $codeArray['verified_email'];
@@ -15,24 +14,17 @@ $verified_email = $codeArray['verified_email'];
 if($verified_email == '1') {
 	header("location: dashboard.php");
 }
-//GET THE CODE THE USER HAS SUBMIT
-$RAWsubmitCode = $_POST['code'];
-$SubmitButton = $_POST['submit'];
-$SubmitCode = htmlspecialchars(addslashes($RAWsubmitCode));
-//IF THE USER HAS CLICKED SUBMIT
-if(isset($SubmitButton)) {
-	//CHECKING THE TWO CODES MATCH
-	if($SubmitCode == $emailCode) {
-		//THE CODE IS A MATCH
-		//UPDATE THE USERS TABLE
-		mysqli_query($con, "UPDATE users SET verified_email = '1' WHERE id = '$usersIDCookie'");
-		header("location: dashboard.php");
+
+$submitCode = htmlspecialchars(addslashes($_POST['code']));
+
+if(isset($_POST['submit'])) { //CHECK SUBMIT CLICKED
+	if($submitCode == $emailCode) { //CHECK CODES MATCH
+		mysqli_query($con, "UPDATE users SET verified_email = '1' WHERE id = '$userIDCookie'"); //UPDATE TABLE
+		header("location: dashboard.php"); //REDIRECT TO DASHBOARD
 	} else {
-		$WrongCodeError = "The code you entered is incorrect.";
+		$error = "The code you entered is incorrect.";
 	}
 }
-$title = 'Verify Email';
-include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 ?>
 <main>
 	<section>
@@ -46,7 +38,7 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 		</form>
 	</section>
 	<section>
-		<p><?php echo "$WrongCodeError"?></p>
+		<p><?php echo "$error"?></p>
 		<p><a href='support.php'>Having trouble? Contact us through the support page.</a></p>
 	</section>
 </main>

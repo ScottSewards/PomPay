@@ -4,11 +4,16 @@ $title = "Profile of $profileUsername";
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 ?>
 <main>
-  <section id="banner">
-    <img src="<?php echo $profileBannerLocation ?>" alt="Banner"/>
+  <section id="profile-banner">
+    <div id="profile-banner-container">
+      <img id='profile-banner-image' src='<?php echo $profileBannerLocation ?>' alt="Banner"/>
+    </div>
   </section>
   <section id="profile">
-    <img src="<?php echo $profilePictureLocation ?>" alt='<?php echo $profileUsername ?> Profile Picture'/>
+    <div id='profile-picture-container'>
+      <img src="<?php echo $profilePictureLocation ?>" alt='<?php echo $profileUsername ?> Profile Picture'/>
+      <input id='edit-banner' type="button" name="button"/>
+    </div>
     <div>
       <h1 id="username"><?php echo $profileUsername ?></h1>
       <p><?php echo "$profileDescription" ?></p>

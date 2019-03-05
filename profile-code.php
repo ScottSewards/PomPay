@@ -29,15 +29,14 @@ $profileBitcoinAddress = $queryResultsTwo['bitcoin_address'];
 
 // CREATE REDIRECT IF THE PROFILE IS NOT ACTIVE // AND THE USER IS NOT THE OWNER OF THE PROFILE
 if($profileState == 0) {
-	$stateMessage = "INACTIVE. This means your profile will NOT
-	show up in search results or recommendations nor can anybody access the profile via other methods.";
+	$stateMessage = "inactive and cannot be seen by other users.";
 	if($profileOwnersID==$usersIDCookie) {
 		//DO NOTHING
 	} else {
 		header("location: index.php");
 	}
 } else {
-	$stateMessage = "ACTIVE. Your profile WILL show up in the search results and recommendations.";
+	$stateMessage = "active and can be seen by other users.";
 }
 // CREATE A SCRIPT TO REDIRECT THE USER BACK TO THE INDEX IF THEY EDIT THE URL
 //UPDATING THE SOCIAL ACCOUNTS // 255 CHAR LIMIT
