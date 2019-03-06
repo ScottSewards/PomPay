@@ -18,6 +18,9 @@ Fix
 - ensure all URL request are secure
 - allow the user to be able to highlight text
 
+- add warning if the user deletes a profile/banner picture and that picture is set as their profile/banner image it
+will come back into the history as they upload/select another image [BUG] (OR PREVENT THE USER FROM CLICKING DELETE IF THAT PICTURE IS SET)
+
 
 #IDEAS
 Look into Block.io
