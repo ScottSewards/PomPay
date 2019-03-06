@@ -225,11 +225,13 @@ if(isset($_POST["upload"])) {
 
 
 			// ADD CURRENT PICTURE TO THE OLD PROFILE PICTURES
-			//mysqli_query($con, "INSERT INTO old_profile_banners (owners_id, location) values ('$usersIDCookie', '$currentImageLoc') ");
+			mysqli_query($con, "INSERT INTO old_profile_banners (owners_id, location) values ('$usersIDCookie', '$currentImageLoc') ");
 
 		}
 
 		header("location: change-profile-banner.php?c=confirm");
+		
+		
 		//header("location:".$_SERVER["PHP_SELF"]);
 		//exit();
 	}
@@ -270,6 +272,39 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 }
 ?>
 <main>
+
+<?php
+
+
+// DISPLAY ERROR MESSAGE IF THE USER WANTS TO DELETE THE CURRENT IMAGE
+$error2 = $_REQUEST['error2'];
+
+if (	$error2=='1'	) {
+
+	echo "<section class='info'>
+
+		<p>Error: The image you want to delete is your current banner.</p>
+
+	</section>";
+
+}
+
+// CONFIRM MESSAGE
+$c = $_REQUEST['c'];
+
+if ($c=='confirm') {
+	
+	echo "<section class='info'>
+
+		<p>Your banner has been updated.</p>
+
+	</section>";
+	
+}
+
+?>
+
+
   <section>
     <h1>Post New Profile Banner</h1>
     <?php
@@ -375,19 +410,41 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 
 		// SECURITY CHECK IF THE USER IS THE OWNER IF THE IMAGE
 		if ($deleteImgOwnersID==$usersIDCookie) {
+			
+			$imageCheckQuery = mysqli_query($con, "SELECT profile_banner FROM users WHERE id = '$usersIDCookie' ");
+			$imageCheckQueryResult = mysqli_fetch_array($imageCheckQuery);
+			$currentBannerIMG = $imageCheckQueryResult['profile_banner'];
+			// CHECK IF THE IMAGE IS NOT THE CURRENT SET IMAGE
+			if ($deleteImgLoc!==$currentBannerIMG) {
+					
+					
 
 
 				// DELETE THE ROW FROM THE DATABASE
 				mysqli_query($con, "DELETE FROM old_profile_banners WHERE id='$delete'; ");
 
 				// DELETE THE IMAGE FROM THE IMAGES FOLDER
-				$imgPath = "$deleteImgLoc";
-				unlink($imgPath);
+				// CHECK IF THE IMAGE IS THE DEAFULT IMAGE
+				if ($deleteImgLoc!=='images/profile-banners/default_banner.jpg') {
+				
+					// DELETE THE IMAGE FROM THE IMAGES FOLDER
+					$imgPath = "$deleteImgLoc";
+					unlink($imgPath);
+				
+				}
 
 				// REFRESH THE PAGE
 				header("location: change-profile-banner.php");
 
 
+			} else {
+				
+					// DISPLAY ERROR MESSAGE
+					header("location: change-profile-banner.php?error2=1");
+				
+				
+			}
+			
 			} else {
 
 				// NOT THE USERS IMAGE
@@ -397,8 +454,6 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 
 
 	}
-
-
 
 
     //SELECT A PREVIOUS PROFILE PICTURE
@@ -455,18 +510,9 @@ if($_GET['a']=="delete" && strlen($_GET['t'])>0){
 
 		";
     }
-    if(!empty($_REQUEST['c']))
-      $confirm = "Your profile banner has been updated";
 
-    ?>
-  </section>
-  <?php
-  if($confirm != "")
-    echo "
-
-    <section class='info'>
-      <p>$confirm</p>
-    </section>";
   ?>
+  
+
 </main>
 <?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>

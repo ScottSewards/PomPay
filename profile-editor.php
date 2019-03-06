@@ -44,6 +44,8 @@ if((isset($userPasswordCookie)) AND (isset($userIDCookie))) { //SIGNED-IN
       </div>
 		</div>
   </section>
+  
+  <!--
   <section>
 		<h1>Activate Profile</h1>
 		<p>Your profile is <?php echo $stateMessage ?></p><br/>
@@ -58,6 +60,10 @@ if((isset($userPasswordCookie)) AND (isset($userIDCookie))) { //SIGNED-IN
 			</div>
 		</div>
   </section>
+  -->
+  
+  
+  
   <section>
     <button type="submit" name="submit">Update My Profile</button>
   </section>

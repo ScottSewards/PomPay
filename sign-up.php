@@ -51,8 +51,8 @@ if(isset($_POST['submit'])) { //USER SUBMITS FORM
 		//CREATE STRONG PASSWORD
 		$strongPassword = password_hash($password, PASSWORD_DEFAULT);
 		//SUBMIT USER DATA AND CREATE ACCOUNT
-		$CreateAccount = mysqli_query($con, "INSERT INTO users (email, email_code,username, password, profile_picture, ethereum_address, bitcoin_address)
-		VALUES ('$email', '$randomString','$username', '$strongPassword', 'images/profile-pictures/avatar.jpg', '$ethereumWallet', '$bitconWallet') ");
+		$CreateAccount = mysqli_query($con, "INSERT INTO users (email, email_code,username, password, profile_picture, profile_banner, ethereum_address, bitcoin_address)
+		VALUES ('$email', '$randomString','$username', '$strongPassword', 'images/profile-pictures/default_profile.jpg', 'images/profile-banners/default_banner.jpg', '$ethereumWallet', '$bitconWallet') ");
 		//GET USER ID AND LOGIN INFORMATION
 		$loggingUserIn = mysqli_query($con, "SELECT * FROM users WHERE email = '$email' AND password = '$strongPassword' ");
 		$UsersData = mysqli_fetch_array($loggingUserIn);
@@ -60,7 +60,7 @@ if(isset($_POST['submit'])) { //USER SUBMITS FORM
 		$usersPassword = $UsersData['password'];
 		//CREATE USER PROFILE PAGE
 		$CreatepProfile = mysqli_query($con, "INSERT INTO profile (owners_username, owners_id, description, state)
-		VALUES ('$username', '$usersID', 'Please write something about your page.', '0') ");
+		VALUES ('$username', '$usersID', '', '0') ");
 		//CREATE COOKIES
 		setcookie("usersIDCookie", "$usersID", time()+86400);
 		setcookie("usersPasswordCookie", "$strongPassword", time()+86400);
