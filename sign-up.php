@@ -60,7 +60,7 @@ if(isset($_POST['submit'])) { //USER SUBMITS FORM
 		$usersPassword = $UsersData['password'];
 		//CREATE USER PROFILE PAGE
 		$CreatepProfile = mysqli_query($con, "INSERT INTO profile (owners_username, owners_id, description, state)
-		VALUES ('$username', '$usersID', 'Please write something about your page.', '0') ");
+		VALUES ('$username', '$usersID', '', '0') ");
 		//CREATE COOKIES
 		setcookie("usersIDCookie", "$usersID", time()+86400);
 		setcookie("usersPasswordCookie", "$strongPassword", time()+86400);
