@@ -3,20 +3,17 @@ $title = 'Sign-in';
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 $error = "";
 
-if((isset($userPasswordCookie)) AND (isset($userIDCookie))) {
-	header("location: dashboard.php"); //REDIRECT
-}
+if((isset($userPasswordCookie)) AND (isset($userIDCookie))) header("location: dashboard.php"); //REDIRECT
 //REMOVE SPECIAL CHARACTERS AND ADD SLASHES
 $loginEmail = htmlspecialchars(addslashes($_POST['email']));
 $loginPassword = htmlspecialchars(addslashes($_POST['password']));
-$loginSubmit = $_POST['submit'];
 
-if(isset($loginSubmit)) {
+if(isset($_POST['submit'])) {
 	$loginQuery = mysqli_query($con, "SELECT * FROM users WHERE email = '$loginEmail'"); //GET PASSWORD
 	$queryResults  = mysqli_fetch_array($loginQuery); //PUT QUERY INTO ARRAY
 	$storedID = $queryResults['id'];
 	$storedPassword = $queryResults['password'];
-	if(password_verify($loginPassword, $storedPassword)) {	//CHECK PASSWORD WITH HASHED PASSWORD
+	if(password_verify($loginPassword, $storedPassword)) { //CORRECT PASSWORD
 		setcookie("usersIDCookie", $storedID, time()+86400); //CREATE COOKIES
 		setcookie("usersPasswordCookie", $storedPassword, time()+86400);
 		header("location: dashboard.php"); //REDIRECT TO DASHBOARD
@@ -28,7 +25,7 @@ if(isset($loginSubmit)) {
 <main>
 	<?php
 	if($error != "") {
-		echo "<section class='info'>
+		echo "<section class='info error'>
 		<p>Error: $error</p>
 		</section>";
 	}

@@ -220,9 +220,6 @@ input[type="checkbox"]{
   width: 3em !important;
   border: 1em solid black;
 }
-input[type="color"]{
-  height: 4em;
-}
 progress{
   display: block;
   height: 3em;
@@ -573,7 +570,14 @@ span.checkbox{
 }
 
 
-
+#profile-banner, #profile-picture{
+  position: relative;
+  input{
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
 
 
 

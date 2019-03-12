@@ -1,19 +1,16 @@
 <?php
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age = 0");
+header("Cache-Control: post-check = 0, pre-check = 0", false);
 header("Pragma: no-cache");
 $title = 'Verify Email';
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 $error = "";
-$userIDCookie = $_COOKIE['usersIDCookie'];
-$codeQuery = mysqli_query($con, "SELECT * FROM users WHERE id = '$userIDCookie' ");
+$codeQuery = mysqli_query($con, "SELECT * FROM users WHERE id = '$userIDCookie'");
 $codeArray = mysqli_fetch_array($codeQuery);
 $emailCode = $codeArray['email_code'];
-$verified_email = $codeArray['verified_email'];
+$verifiedEmail = $codeArray['verified_email'];
 //CHECK THE USER HASNT ALREADY VERIFIED THEIR EMAIL
-if($verified_email == '1') {
-	header("location: dashboard.php");
-}
+if($verifiedEmail == '1') header("location: dashboard.php");
 
 $submitCode = htmlspecialchars(addslashes($_POST['code']));
 
@@ -22,7 +19,7 @@ if(isset($_POST['submit'])) { //CHECK SUBMIT CLICKED
 		mysqli_query($con, "UPDATE users SET verified_email = '1' WHERE id = '$userIDCookie'"); //UPDATE TABLE
 		header("location: dashboard.php"); //REDIRECT TO DASHBOARD
 	} else {
-		$error = "The code you entered is incorrect.";
+		$error = "incorrect code";
 	}
 }
 ?>
@@ -32,13 +29,20 @@ if(isset($_POST['submit'])) { //CHECK SUBMIT CLICKED
 		<p>Check your email address inbox for an email with an email verification code. Enter the code below to verify your email address. If you cannot see the email, check your junk folder or if you have not recieved the email, <a href="#">resend an email for verification.</a></p>
 	</section>
 	<section class="form-only">
-		<form action='email_ver.php' method='post'>
+		<form action='verify-email.php' method='post'>
 			<input type='text' name='code' placeholder='62746354895'/>
 			<input type='submit' name='submit' value='Verify Email'/>
 		</form>
 	</section>
+	<?php
+	if($error != "") {
+		echo "
+		<section class='info error'>
+			<p>Error: $error</p>
+		</section>";
+	}
+	?>
 	<section>
-		<p><?php echo "$error"?></p>
 		<p><a href='support.php'>Having trouble? Contact us through the support page.</a></p>
 	</section>
 </main>

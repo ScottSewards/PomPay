@@ -8,8 +8,7 @@ Hide QR code if not wallet is linked
 Add profile banner
 Fix crop tool
 Add multiple projects (2 max)
-Fix
-
+Add error, tip, caution, info class and prefix "n:" using CSS
 - only allow the new users to show on index page if the user has completed the checklist
 - only show the user the option to activate and deactivate their profile once the checklist has been complete
 - on sign up the user should be given a temp banner

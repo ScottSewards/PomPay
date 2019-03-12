@@ -13,12 +13,12 @@ $username = $queryResults['username'];
     <meta charset="utf-8"/>
     <meta name="viewport" content="width = device-width, initial-scale = 1.0"/>
     <title id="title">Pompay <?php if($title != "") echo " - $title"; ?></title>
-    <link href="images/favicon-new.png" rel="icon" type="image/gif" sizes="64x64"/>
+    <link rel="icon" type="image/gif" href="images/favicon.png" sizes="64x64"/>
 		<link href="css/master.min.css" rel="stylesheet" type="text/css"/>
     <script src="js/jquery.js" type="text/javascript"></script>
     <script src="js/master.js" type="text/javascript"></script>
 		<script src="js/dapp.js" type="text/javascript"></script>
-		<script src="js/jquery-pack.js" type="text/javascript"></script>
-		<script src="js/jquery.imgareaselect.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/jquery-pack.js"></script>
+		<script type="text/javascript" src="js/jquery.imgareaselect.min.js"></script>
 	</head>
 	<body>

@@ -14,9 +14,8 @@ if((isset($userPasswordCookie)) AND (isset($userIDCookie))) {
 }
 
 //GETTING THE USERS ACCOUNT INFORMATION
-$accountQuery = mysqli_query($con, "SELECT * FROM users WHERE id = '$userIDCookie' AND password = '$userPasswordCookie' ");
+$accountQuery = mysqli_query($con, "SELECT * FROM users WHERE id = '$userIDCookie' AND password = '$userPasswordCookie'");
 $accountArray = mysqli_fetch_array($accountQuery);
-// creating varibles using that array
 $accountPicture = $accountArray['profile_picture'];
 $accountID = $accountArray['id'];
 $accountUsername = $accountArray['username'];
@@ -26,9 +25,7 @@ $accountVerified = $accountArray['verified_email'];
 $bitcoinWalletAddress = $accountArray['bitcoin_address'];
 $ethereumWalletAddress = $accountArray['ethereum_address'];
 
-echo $email_code = $_REQUEST['code']; //CHECK IF USER CLICKED EMAIL LINK
-
-if($email_code == $accountEmailCode) { //CHECK IF CODE MATCHES
+if($_REQUEST['code'] == $accountEmailCode) { //CHECK IF CODE MATCHES
 	mysqli_query($con, "UPDATE users SET verified_email	='1' WHERE id='$accountID'"); //UPDATE TABLE
 	//header("location: dashboard/change-profile-picture.php"); WHY DOES THIS DIRECT YOU TO CHANGE YOUR PROFILE PICTURE, THATS JUST BAD DESIGN MATE
 }
@@ -43,7 +40,7 @@ if($email_code == $accountEmailCode) { //CHECK IF CODE MATCHES
 			<h1>Account</h1>
 			<ul>
 				<li><a href="profile-editor.php?profile=<?php echo $accountUsername?>">Change About Me</a></li>
-				<li><a href="upload_crop.php">Change Profile Picture</a></li>
+				<li><a href="upload-crop.php">Change Profile Picture</a></li>
 				<li><a href="change-profile-banner.php">Change Profile Banner</a></li>
 				<li><a href="dashboard/change-email-address.php">Change Email Address</a></li>
 				<li><a href="dashboard/change-password.php">Change Password</a></li>

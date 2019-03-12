@@ -2,18 +2,18 @@
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
-include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
-$title = "$profileUsername";
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
+$title = "$profileUsername";
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
 
-if((isset($userPasswordCookie)) AND (isset($userIDCookie))) { //SIGNED-IN
+if((isset($usersPasswordCookie)) AND (isset($usersIDCookie))) { //SIGNED-IN
 
 } else { //SIGNED-OUT
 	header("location: sign-in.php");
 }
 ?>
 <main id="editor">
-  <form action="profile-code.php?profile=<?php echo $UsersUsername ?>" method="post">
+  <form action="profile-code.php?profile=<?php echo $usersUsername ?>" method="post">
   <section id="about">
     <h1>About Me</h1>
     <textarea name="profile-about" rows="8" cols="80" placeholder="Write an about for your profile..."><?php echo $profileDescription ?></textarea>
@@ -44,7 +44,6 @@ if((isset($userPasswordCookie)) AND (isset($userIDCookie))) { //SIGNED-IN
       </div>
 		</div>
   </section>
-  
   <!--
   <section>
 		<h1>Activate Profile</h1>
@@ -61,9 +60,6 @@ if((isset($userPasswordCookie)) AND (isset($userIDCookie))) { //SIGNED-IN
 		</div>
   </section>
   -->
-  
-  
-  
   <section>
     <button type="submit" name="submit">Update My Profile</button>
   </section>

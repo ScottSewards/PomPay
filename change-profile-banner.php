@@ -1,20 +1,17 @@
 <?php
 $title = 'Change Profile Picture';
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
-
 error_reporting (E_ALL ^ E_NOTICE);
 session_start(); //DO NOT REMOVE
 //only assign a new timestamp if the session variable is empty
-if (!isset($_SESSION['random_key']) || strlen($_SESSION['random_key'])==0){
-    $_SESSION['random_key'] = strtotime(date('Y-m-d H:i:s')); //assign the timestamp to the session variable
-	$_SESSION['user_file_ext']= "";
+if (!isset($_SESSION['random_key']) || strlen($_SESSION['random_key']) == 0){
+  $_SESSION['random_key'] = strtotime(date('Y-m-d H:i:s')); //assign the timestamp to the session variable
+	$_SESSION['user_file_ext'] = "";
 }
 //BASIC CODE
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
-require "connect.inc.php";
-$usersIDCookie = $_COOKIE['usersIDCookie'];
 $upload_dir = "images/profile-banners"; 	// The directory for the images to be saved in
 $upload_path = $upload_dir."/";				// The path to where the image will be saved
 $large_image_prefix = "original_"; 			// The prefix name to large image
@@ -29,6 +26,7 @@ $thumb_height = "300";						// Height of thumbnail image
 $allowed_image_types = array('image/pjpeg'=>"jpg",'image/jpeg'=>"jpg",'image/jpg'=>"jpg",'image/png'=>"png",'image/x-png'=>"png",'image/gif'=>"gif");
 $allowed_image_ext = array_unique($allowed_image_types); // do not change this
 $image_ext = "";	// initialise variable, do not change this.
+
 foreach($allowed_image_ext as $mime_type => $ext) {
     $image_ext.= strtoupper($ext)." ";
 }
@@ -230,8 +228,8 @@ if(isset($_POST["upload"])) {
 		}
 
 		header("location: change-profile-banner.php?c=confirm");
-		
-		
+
+
 		//header("location:".$_SERVER["PHP_SELF"]);
 		//exit();
 	}
@@ -293,13 +291,13 @@ if (	$error2=='1'	) {
 $c = $_REQUEST['c'];
 
 if ($c=='confirm') {
-	
+
 	echo "<section class='info'>
 
 		<p>Your banner has been updated.</p>
 
 	</section>";
-	
+
 }
 
 ?>
@@ -410,14 +408,14 @@ if ($c=='confirm') {
 
 		// SECURITY CHECK IF THE USER IS THE OWNER IF THE IMAGE
 		if ($deleteImgOwnersID==$usersIDCookie) {
-			
+
 			$imageCheckQuery = mysqli_query($con, "SELECT profile_banner FROM users WHERE id = '$usersIDCookie' ");
 			$imageCheckQueryResult = mysqli_fetch_array($imageCheckQuery);
 			$currentBannerIMG = $imageCheckQueryResult['profile_banner'];
 			// CHECK IF THE IMAGE IS NOT THE CURRENT SET IMAGE
 			if ($deleteImgLoc!==$currentBannerIMG) {
-					
-					
+
+
 
 
 				// DELETE THE ROW FROM THE DATABASE
@@ -426,11 +424,11 @@ if ($c=='confirm') {
 				// DELETE THE IMAGE FROM THE IMAGES FOLDER
 				// CHECK IF THE IMAGE IS THE DEAFULT IMAGE
 				if ($deleteImgLoc!=='images/profile-banners/default_banner.jpg') {
-				
+
 					// DELETE THE IMAGE FROM THE IMAGES FOLDER
 					$imgPath = "$deleteImgLoc";
 					unlink($imgPath);
-				
+
 				}
 
 				// REFRESH THE PAGE
@@ -438,13 +436,13 @@ if ($c=='confirm') {
 
 
 			} else {
-				
+
 					// DISPLAY ERROR MESSAGE
 					header("location: change-profile-banner.php?error2=1");
-				
-				
+
+
 			}
-			
+
 			} else {
 
 				// NOT THE USERS IMAGE
@@ -512,7 +510,7 @@ if ($c=='confirm') {
     }
 
   ?>
-  
+
 
 </main>
 <?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>

@@ -1,21 +1,22 @@
 <?php
-include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
 $title = "Profile of $profileUsername";
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
 ?>
 <main>
   <section id="profile-banner">
     <div id="profile-banner-container">
-      <img id='profile-banner-image' src='<?php echo $profileBannerLocation ?>' alt="Banner"/>
     </div>
   </section>
   <section id="profile">
-    <div id='profile-picture-container'>
+    <img id='profile-banner' src='<?php echo $profileBannerLocation ?>' alt="Banner"/>
+    <div id='profile-picture'>
       <img src="<?php echo $profilePictureLocation ?>" alt='<?php echo $profileUsername ?> Profile Picture'/>
-      <input id='edit-banner' type="button" name="button"/>
+      <input id='edit-banner' type="button" name="button" value="Change Banner"/>
     </div>
     <div>
       <h1 id="username"><?php echo $profileUsername ?></h1>
+      <input id='edit-banner' type="button" name="button" value="Change Picture"/>
       <p><?php echo "$profileDescription" ?></p>
     </div>
   </section>
@@ -99,15 +100,13 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 		</div>
   </section>
   <?php
-  /*
   if($profileEthereumAddress != "") {
     echo "
     <section>
       <h1>QR Code Test</h1>
       <img src='https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=$profileEthereumAddress&choe=UTF-8' alt='Ethereum Wallet QR Code'/>;
-    </section>"
+    </section>";
   }
-  */
   ?>
   <section id="rewards">
     <h1>Rewards or Milestones?</h1>
