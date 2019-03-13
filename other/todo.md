@@ -1,12 +1,14 @@
 #TODO
-Add functionality to resend email verification
-Add Facebook, Twitter, and YouTube social buttons to profile
+Add resend email verification
+Add Facebook, Twitter, and YouTube API buttons
+
 Fix search by tag
 Create custom checkboxes
 Hide embedded YouTube video if no video is linked
 Hide QR code if not wallet is linked
 Add profile banner
 Fix crop tool
+Get old Ethereum address and set it as the value for the input field if it was previously set
 Add multiple projects (2 max)
 Add error, tip, caution, info class and prefix "n:" using CSS
 Option to disable banner
@@ -21,7 +23,7 @@ Option to disable banner
 - add warning if the user deletes a profile/banner picture and that picture is set as their profile/banner image it
 will come back into the history as they upload/select another image [BUG] (OR PREVENT THE USER FROM CLICKING DELETE IF THAT PICTURE IS SET)
 
-
 #IDEAS
 Look into Block.io
-Look into accepting PayPal
+Look into EthJS
+Look into PayPal

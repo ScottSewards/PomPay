@@ -6,11 +6,11 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
 <main>
   <section id="banner">
     <div id="banner-container">
-      <img id='banner-image' src='<?php echo $profileBannerLocation ?>' alt="Banner"/>
+      <img id='banner-image' src='<?php echo $profileBannerLocation ?>' alt='Profile Banner'/>
     </div>
   </section>
   <section id="picture">
-    <img id="picture-image" src="<?php echo $profilePictureLocation ?>" alt='<?php echo $profileUsername ?> Profile Picture'/>
+    <img id="picture-image" src="<?php echo $profilePictureLocation ?>" alt='Profile Picture'/>
     <!--input id='edit-banner' type="button" name="button" value="Change Banner"/-->
     <div>
       <h1 id="username"><?php echo $profileUsername ?></h1>
@@ -20,34 +20,34 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
         if($profileDescription != "") {
           echo "$profileDescription";
         } else {
-          echo "User has not written an about section...";
+          echo "User has not written an about section for their profile...";
         }
         ?>
       </p>
     </div>
   </section>
   <?php //GET LATEST TWO BLOG POSTS
-  $blog_profile_username = $_REQUEST['profile'];
-  $preQuery = mysqli_query($con, "SELECT id FROM users WHERE username = '$blog_profile_username' ");
+  $bloggerUsername = $_REQUEST['profile'];
+  $preQuery = mysqli_query($con, "SELECT id FROM users WHERE username = '$bloggerUsername' ");
   $preQueryResults = mysqli_fetch_array($preQuery);
   $profileBlogID = $preQueryResults['id'];
-  $profile_blog_query = mysqli_query($con, "SELECT * FROM profile_blog WHERE profile_id = '$profileBlogID' ORDER BY id DESC LIMIT 2");
+  $profileBlogQuery = mysqli_query($con, "SELECT * FROM profile_blog WHERE profile_id = '$profileBlogID' ORDER BY id DESC LIMIT 2");
   ?>
   <section>
-	  <h1>Latest Blog Posts</h1>
+	  <h1>Recent Blog Posts</h1>
     <div class="subsections">
       <?php
-      while($results = mysqli_fetch_array($profile_blog_query)) {
-        $resultID2 = $results['id'];
-        $resultProfileID2 = $results['profile_id'];
-        $resultTitle2 = $results['title'];
-        $resultPost2 = $results['post'];
-        $resultProfileDate2 = $results['date'];
-        $lastSpace = strrpos(substr($resultPost2, 0, "550"), ' ');
-        $snippit = substr($resultPost2, 0, $lastSpace) . "...";
+      while($results = mysqli_fetch_array($profileBlogQuery)) {
+        $resultID = $results['id'];
+        $resultProfileID = $results['profile_id'];
+        $resultTitle = $results['title'];
+        $resultPost = $results['post'];
+        $resultProfileDate = $results['date'];
+        $lastSpace = strrpos(substr($resultPost, 0, "550"), ' ');
+        $snippit = substr($resultPost, 0, $lastSpace) . "...";
         echo "
-        <div>
-          <h2>$resultTitle2</h2>
+        <div style='background: red; padding: 0 1em;'>
+          <h2>$resultTitle</h2>
           <p>$snippit</p>
         </div>";
       }
@@ -106,20 +106,19 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
 		</div>
   </section-->
   <section>
-    <h1>Ethereum</h1>
+    <h1>Wallet</h1>
     <?php
     if($profileEthereumAddress != "") {
       echo "
-        <p>This users Ethereum address is: $profileEthereumAddress</p>
-        <img src='https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=$profileEthereumAddress&choe=UTF-8' alt='Ethereum Wallet QR Code'/>
-        <input id='send-ethereum' type='button' name='send-ethereum' value='Send Ethereum' onclick='alert('clicked!')'/>";
+      <p>This users Ethereum address is: $profileEthereumAddress</p>
+      <img src='https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=$profileEthereumAddress&choe=UTF-8' alt='Ethereum Wallet QR Code'/>
+      <input id='send-ethereum' type='button' name='send-ethereum' value='Send Ethereum'/>";
     } else {
-      echo "temp";
+      echo "This profile does not have an Ethereum address assigned.";
     }
     ?>
-    <p>We will add analytics here for now</p>
   </section>
-  <section id="rewards">
+  <!--section id="rewards">
     <h1>Rewards or Milestones?</h1>
     <div class="timeline">
       <div class="milestone">
@@ -133,10 +132,10 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
         <p class="editable">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </div>
     </div>
-  </section>
+  </section-->
   <section id="social-media">
     <h1>Social Media</h1>
-    <ul>
+    <!--ul>
       <li>Share <?php echo "$profileUsername"?> on Facebook</li>
       <li>Share <?php echo "$profileUsername"?> on Twitter</li>
       <li>Share <?php echo "$profileUsername"?> on YouTube</li>
@@ -145,7 +144,7 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
       <li>View <?php echo "$profileUsername"?> on Facebook</li>
       <li>View <?php echo "$profileUsername"?> on Twitter</li>
       <li>View <?php echo "$profileUsername"?> on YouTube</li>
-    </ul>
+    </ul-->
   </section>
 </main>
 <?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>

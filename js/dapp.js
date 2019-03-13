@@ -10,9 +10,20 @@ window.onload = function() {
   if(web) {
     if(web.eth.accounts.length) {
       const account = web.eth.accounts[0]; //GET FIRST ACCOUNT
-      console.log(account);
+      console.log("Your Ethereum address is " + account);
+      var promise1 = new Promise(function(resolve, reject) {
+        setTimeout(function() {
+          resolve('foo');
+        }, 300);
+      });
+
+      web3.eth.getAccounts(function (err, accounts) {
+        web.eth.getBalance(accounts[0], function (err, balance) {
+          console.log('Your balance is ' + web3.fromWei(balance, 'ether'));
+        })
+      })
     } else {
-      console.log("Account is locked");
+      console.log("Your account is locked.");
     }
   }
 
