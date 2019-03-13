@@ -24,7 +24,6 @@ $(function(){
     //var test = GenerateEthereumWallet();
   });
 
-
   //ELEMENTS/CLASSES/IDENTIFIERS
   $('.accordion').each(function(){
     $(this).find('ol').addClass('options');

@@ -1,23 +1,29 @@
 <?php
-$title = "Profile of $profileUsername";
+$title = "Profile"; // of $profileUsername";
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
 ?>
 <main>
-  <section id="profile-banner">
-    <div id="profile-banner-container">
+  <section id="banner">
+    <div id="banner-container">
+      <img id='banner-image' src='<?php echo $profileBannerLocation ?>' alt="Banner"/>
     </div>
   </section>
-  <section id="profile">
-    <img id='profile-banner' src='<?php echo $profileBannerLocation ?>' alt="Banner"/>
-    <div id='profile-picture'>
-      <img src="<?php echo $profilePictureLocation ?>" alt='<?php echo $profileUsername ?> Profile Picture'/>
-      <input id='edit-banner' type="button" name="button" value="Change Banner"/>
-    </div>
+  <section id="picture">
+    <img id="picture-image" src="<?php echo $profilePictureLocation ?>" alt='<?php echo $profileUsername ?> Profile Picture'/>
+    <!--input id='edit-banner' type="button" name="button" value="Change Banner"/-->
     <div>
       <h1 id="username"><?php echo $profileUsername ?></h1>
-      <input id='edit-banner' type="button" name="button" value="Change Picture"/>
-      <p><?php echo "$profileDescription" ?></p>
+      <!--input id='edit-banner' type="button" name="button" value="Change Picture"/-->
+      <p>
+        <?php
+        if($profileDescription != "") {
+          echo "$profileDescription";
+        } else {
+          echo "User has not written an about section...";
+        }
+        ?>
+      </p>
     </div>
   </section>
   <?php //GET LATEST TWO BLOG POSTS
@@ -90,7 +96,7 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
       chart.draw(data, options);
     }
     </script>
-  </section-->
+  </section>
   <section id="video">
     <h1>Embed Video</h1>
 		<div class="embedVideo">
@@ -98,16 +104,21 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $profileVideo ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			</center>
 		</div>
+  </section-->
+  <section>
+    <h1>Ethereum</h1>
+    <?php
+    if($profileEthereumAddress != "") {
+      echo "
+        <p>This users Ethereum address is: $profileEthereumAddress</p>
+        <img src='https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=$profileEthereumAddress&choe=UTF-8' alt='Ethereum Wallet QR Code'/>
+        <input id='send-ethereum' type='button' name='send-ethereum' value='Send Ethereum' onclick='alert('clicked!')'/>";
+    } else {
+      echo "temp";
+    }
+    ?>
+    <p>We will add analytics here for now</p>
   </section>
-  <?php
-  if($profileEthereumAddress != "") {
-    echo "
-    <section>
-      <h1>QR Code Test</h1>
-      <img src='https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=$profileEthereumAddress&choe=UTF-8' alt='Ethereum Wallet QR Code'/>;
-    </section>";
-  }
-  ?>
   <section id="rewards">
     <h1>Rewards or Milestones?</h1>
     <div class="timeline">

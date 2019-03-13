@@ -16,15 +16,6 @@ nav, main, article, section, footer{
   clear: both;
   width: 100%;
 }
-section#banner{
-  position: relative;
-  padding: 0 !important;
-  margin-top: -1em;
-  margin-bottom: -1.5em;
-  img{
-    width: 100%;
-  }
-}
 nav{
   z-index: 999;
   background-color: $primary;
@@ -378,6 +369,15 @@ progress[value]::-webkit-progress-bar {
 
 
 //IDENTIFIERS
+#banner{
+  position: relative;
+  padding: 0 !important;
+  margin-top: -1em;
+  margin-bottom: -1.5em;
+  img{
+    width: 100%;
+  }
+}
 #breadcrumbs, #catagories{
   ul{
     padding-left: 1em;
@@ -442,7 +442,7 @@ progress[value]::-webkit-progress-bar {
     resize: none;
   }
 }
-#profile{
+#picture{
   display: flex;
   padding: 0;
   #username{
@@ -453,7 +453,6 @@ progress[value]::-webkit-progress-bar {
     margin-right: 1em;
     height: 100%;
     max-height: 15em;
-    width: 100%;
     max-width: 15em;
   }
   div{

@@ -2,6 +2,8 @@
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/connect.inc.php");
 $userIDCookie = $_COOKIE['usersIDCookie'];
 $userPasswordCookie = $_COOKIE['usersPasswordCookie'];
+$usersIDCookie = $_COOKIE['usersIDCookie'];
+$usersPasswordCookie = $_COOKIE['usersPasswordCookie'];
 $usernameQuery = mysqli_query($con, "SELECT username FROM users WHERE id = '$userIDCookie'");
 $queryResults = mysqli_fetch_array($usernameQuery);
 $username = $queryResults['username'];

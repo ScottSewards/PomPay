@@ -15,7 +15,7 @@ $SECUREmessage = htmlspecialchars(addslashes($_POST['message']));
 
 if(isset($_POST['submit'])) { //SUBMIT DATA
 	$SubmitQuery = mysqli_query($con, "INSERT INTO support (usersID, email, subject, message, dateTime)
-	VALUES ('$theUsersID', '$SECUREemailAddress', '$RAWsubject', '$RAWmessage', 'DateTime')");
+	VALUES ('$userID', '$SECUREemailAddress', '$SECUREsubject', '$SECUREmessage', 'DateTime')");
 	header("location: support.php?m=s");
 }
 ?>
@@ -23,7 +23,7 @@ if(isset($_POST['submit'])) { //SUBMIT DATA
 	<article id="faq">
 		<h1>Frequently Asked Questions</h1>
 		<h2>What is Pompay?</h2>
-		<p>Pompay is a crowdsfunding-membership platform focusing on cryptocurrency. This means you can setup a profile page and/or a project page to provide information about yourself, a product or whatever you wish so you can revieve crowdfunding, donations, etc.</p>
+		<p>Pompay is a crowdsfunding-membership platform. Here you can create a profile or a project page to provide information about yourself, a product or anything you want to  revieve crowdfunding, donations, etc.</p>
 
 		<h2>What cryptocurrencies are supported?</h2>
 		<p>Currently, we support only Ethereum. However, we hope to add support for Bitcoin and Litecoin in a future update.</p>
@@ -32,6 +32,9 @@ if(isset($_POST['submit'])) { //SUBMIT DATA
 		<p>Cryptocurrency can be perplexing so we want to make it as simple to use as possible so we recommend you follow this checklist:</p>
 		<ol>
 			<li>Install MetaMask, <a href="https://metamask.io/">you can download it here.</a></li>
+			<li><a href="sign-up.php">Create an account.</a></li>
+			<li>You're done.</li>
+
 		</ol>
 	</article>
 	<?php
