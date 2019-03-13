@@ -22,11 +22,11 @@ if($_REQUEST['s'] == "lo") { //SIGN-OUT VIA REMOVING COOKIES
 			</div>
 		</div>
 	</section>
-	<!--section id="featured-profiles">
+	<section id="featured-profiles">
 		<h1>Featured Profiles</h1>
 		<div class='profiles'>
 		<?php
-		$featuredQueryMain = mysqli_query($con, "SELECT * FROM featured_profiles LIMIT 5");
+		$featuredQueryMain = mysqli_query($con, "SELECT * FROM featured_profiles LIMIT 4 ");
 		while($featuredResults = mysqli_fetch_array($featuredQueryMain)) {
 			$featuredID = $featuredResults['id'];
 			$featuredProfileID = $featuredResults['profile_id'];
@@ -56,12 +56,12 @@ if($_REQUEST['s'] == "lo") { //SIGN-OUT VIA REMOVING COOKIES
 		}
 		?>
 		</div>
-	</section-->
+	</section>
 	<section id="newest-profiles">
 		<h1>New Profiles</h1>
 		<div class="profiles">
 		<?php
-		$newestQuery = mysqli_query($con, "SELECT * FROM profile WHERE state = '1' ORDER BY id DESC LIMIT 5");
+		$newestQuery = mysqli_query($con, "SELECT * FROM profile WHERE state = '1' ORDER BY id DESC LIMIT 4");
 		while($newestQueryArray = mysqli_fetch_array($newestQuery)) {
 			$owners_ID = $newestQueryArray['owners_id'];
 			$owners_Username = $newestQueryArray['owners_username'];

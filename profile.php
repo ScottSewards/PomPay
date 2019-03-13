@@ -118,6 +118,24 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/profile-code.php");
     }
     ?>
   </section>
+  
+  
+  
+    <section>
+    <h1>PayPal/Card</h1>
+    <?php
+    if($paypalAddress != "") {
+      echo "
+      <a href='$paypalDonateButton'>Donate Via PayPal/Card</a>";
+    } else {
+      echo "This profile is not currently accepting PayPal donations.";
+    }
+    ?>
+  </section>
+  
+  
+  
+  
   <!--section id="rewards">
     <h1>Rewards or Milestones?</h1>
     <div class="timeline">

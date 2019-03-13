@@ -13,6 +13,7 @@ $password = htmlspecialchars(addslashes($_POST['password']));
 $confirmPassword = htmlspecialchars(addslashes($_POST['confirmPassword']));
 $bitconWallet = htmlspecialchars(addslashes($_POST['bitcoinWallet']));
 $ethereumWallet = htmlspecialchars(addslashes($_POST['ethereumWallet']));
+$payPalAddress = htmlspecialchars(addslashes($_POST['payPalAddress']));
 
 if(isset($_POST['submit'])) { //USER SUBMITS FORM
 	//CHECK EMAIL USED
@@ -51,8 +52,8 @@ if(isset($_POST['submit'])) { //USER SUBMITS FORM
 		//CREATE STRONG PASSWORD
 		$strongPassword = password_hash($password, PASSWORD_DEFAULT);
 		//SUBMIT USER DATA AND CREATE ACCOUNT
-		$CreateAccount = mysqli_query($con, "INSERT INTO users (email, email_code,username, password, profile_picture, profile_banner, ethereum_address, bitcoin_address)
-		VALUES ('$email', '$randomString','$username', '$strongPassword', 'images/profile-pictures/default_profile.jpg', 'images/profile-banners/default_banner.jpg', '$ethereumWallet', '$bitconWallet') ");
+		$CreateAccount = mysqli_query($con, "INSERT INTO users (email, email_code, username, password, profile_picture, profile_banner, ethereum_address, bitcoin_address, paypal)
+		VALUES ('$email', '$randomString','$username', '$strongPassword', 'images/profile-pictures/default_profile.jpg', 'images/profile-banners/default_banner.jpg', '$ethereumWallet', '$bitconWallet', '$payPalAddress') ");
 		//GET USER ID AND LOGIN INFORMATION
 		$loggingUserIn = mysqli_query($con, "SELECT * FROM users WHERE email = '$email' AND password = '$strongPassword' ");
 		$UsersData = mysqli_fetch_array($loggingUserIn);
@@ -106,6 +107,14 @@ if(isset($_POST['submit'])) { //USER SUBMITS FORM
 						<input type="text" name="ethereumWallet" placeholder="0xa14ae9bc94005a93934a027024eb7421215853af (optional)"/>
 						<button type="button" name="generateEthereumWallet" id="generateEthereumWallet" onclick="GenerateEthereumWallet()">Generate</button>
 					</div>
+					
+					<div class="field">
+						<label for="payPalAddress">PayPal Address</label>
+						<input type="text" name="payPalAddress" placeholder="paypal@example.com (optional)"/>
+						
+					</div>
+					
+					
 				</div>
 				<button type="submit" name="submit">Sign-up</button>
 			</form>

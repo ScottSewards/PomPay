@@ -27,6 +27,10 @@ $UsersUsername = $queryResultsTwo['username'];
 $profileEthereumAddress = $queryResultsTwo['ethereum_address'];
 $profileBitcoinAddress = $queryResultsTwo['bitcoin_address'];
 
+$paypalAddress = $queryResultsTwo['paypal'];
+$paypalDonateButton = $queryResultsTwo['paypal_button'];
+
+
 // CREATE REDIRECT IF THE PROFILE IS NOT ACTIVE // AND THE USER IS NOT THE OWNER OF THE PROFILE
 if($profileState == 0) {
 	$stateMessage = "inactive and cannot be seen by other users.";
