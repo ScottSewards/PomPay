@@ -1,0 +1,26 @@
+
+Admin Dashboard (to create paypal buttons and update analitics)
+
+// new accounts that have a paypal address assigned
+// need to create a donation button
+
+- check database for accounts which have paypal address assigned but no button and while loop the results
+- have the link to the paypal website where the donate button can be created (maybe use an Iframe)
+- display account ID, username and link to forms page
+- display form where the donate button code is input and the users account table is updated
+(also display account username make everything as clear and easy as possible)
+- once the donate button has been created redirect the user back to previous page
+
+
+
+// maintaining the paypal analitics for the users
+
+
+
+
+
+
+
+
+
+
