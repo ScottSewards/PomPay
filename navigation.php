@@ -13,10 +13,12 @@
 		<ul>
 			<?php
 			if((isset($userPasswordCookie)) AND (isset($userIDCookie))) {
-				echo "<li id='dashboard'><a href='dashboard.php'>Dashboard</a></li>
+				echo "
+				<li id='dashboard'><a href='dashboard.php'>Dashboard</a></li>
 				<li id='sign-out' class='caution'><a href='index.php?s=lo'>Sign-out</a></li>";
 			} else {
-				echo "<li id='sign-in'><a href='sign-in.php'>Sign-in</a></li>
+				echo "
+				<li id='sign-in'><a href='sign-in.php'>Sign-in</a></li>
 				<li id='sign-up'><a href='sign-up.php'>Sign-up</a></li>";
 			}
 			?>

@@ -1,5 +1,5 @@
 <?php
-$title = 'Index';
+$title = '';
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 if($_REQUEST['s'] == "lo") { //SIGN-OUT VIA REMOVING COOKIES
 	setcookie("usersIDCookie", "", time()-86400);
@@ -8,7 +8,7 @@ if($_REQUEST['s'] == "lo") { //SIGN-OUT VIA REMOVING COOKIES
 }
 ?>
 <main>
-	<?php include("search-bar.php");?>
+	<?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/templates/search-bar.php"); ?>
 	<section class="hide">
 		<h1>Featured</h1>
 		<div class="pages">

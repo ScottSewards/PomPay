@@ -39,8 +39,9 @@ if(isset($_POST['submit'])) { //SUBMIT DATA
 	</article>
 	<?php
 	if($message != "") {
-		echo "<section class='info'>
-		<p>Notice: $message</p>
+		echo "
+		<section class='info notice'>
+			<p>Notice: $message</p>
 		</section>";
 	}
 	?>

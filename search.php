@@ -3,7 +3,7 @@ $title = "Search";
 include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/navigation.php");
 ?>
 <main>
-  <?php include($_SERVER["DOCUMENT_ROOT"]."/Pompay/search-bar.php");?>
+  <?php include($_SERVER["DOCUMENT_ROOT"]."/Pompay/templates/search-bar.php");?>
   <section id="search-reults">
     <?php
       //GETTING THE SEARCH QUERY FROM THE SEARCH BAR // THIS WILL BE COMING FROM THE INDEX.PHP AND SEARCH.PHP

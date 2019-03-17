@@ -347,63 +347,44 @@ if($_GET['a'] == "delete" && strlen($_GET['t']) > 0) {
 	// DELETE OLD PROFILE PICTURE
 	$delete = $_REQUEST['d'];
 
-	if (	!empty($delete)	) {
-
-
+	if(!empty($delete)) {
 	// QUERY TO GET THE IMAGE LOCATION
 	$deleteQuery = mysqli_query($con, "SELECT * FROM old_profile_banners WHERE id = '$delete' ");
 	$deleteQueryArray = mysqli_fetch_array($deleteQuery);
-
 	$deleteImgOwnersID = $deleteQueryArray['owners_id'];
 	$deleteImgLoc = $deleteQueryArray['location'];
 
 		// SECURITY CHECK IF THE USER IS THE OWNER IF THE IMAGE
 		if ($deleteImgOwnersID==$usersIDCookie) {
-
 			$imageCheckQuery = mysqli_query($con, "SELECT profile_banner FROM users WHERE id = '$usersIDCookie' ");
 			$imageCheckQueryResult = mysqli_fetch_array($imageCheckQuery);
 			$currentBannerIMG = $imageCheckQueryResult['profile_banner'];
 			// CHECK IF THE IMAGE IS NOT THE CURRENT SET IMAGE
 			if ($deleteImgLoc!==$currentBannerIMG) {
-
-
-
-
 				// DELETE THE ROW FROM THE DATABASE
 				mysqli_query($con, "DELETE FROM old_profile_banners WHERE id='$delete'; ");
 
 				// DELETE THE IMAGE FROM THE IMAGES FOLDER
 				// CHECK IF THE IMAGE IS THE DEAFULT IMAGE
 				if ($deleteImgLoc!=='images/profile-banners/default_banner.jpg') {
-
 					// DELETE THE IMAGE FROM THE IMAGES FOLDER
 					$imgPath = "$deleteImgLoc";
 					unlink($imgPath);
-
 				}
 
 				// REFRESH THE PAGE
 				header("location: change-profile-banner.php");
-
-
 			} else {
 
 					// DISPLAY ERROR MESSAGE
 					header("location: change-profile-banner.php?error2=1");
-
-
 			}
 
 			} else {
-
 				// NOT THE USERS IMAGE
 				header("location: change-profile-banner.php");
-
 			}
-
-
 	}
-
 
     //SELECT A PREVIOUS PROFILE PICTURE
     $img = $_REQUEST['img'];
@@ -435,33 +416,23 @@ if($_GET['a'] == "delete" && strlen($_GET['t']) > 0) {
       }
     }    //ADD OLD PROFILE PICTURES
     $oldProfileQuery = mysqli_query($con, "SELECT * FROM old_profile_banners WHERE owners_id = '$usersIDCookie'");
+
     while($queryArray = mysqli_fetch_array($oldProfileQuery)) {
       $picture_id = $queryArray['id'];
       $picture_owners_id = $queryArray['owners_id'];
       $picture_location = $queryArray['location'];
       echo "
-
 	   <div style='float: left; border: solid 0px red;margin-top: 5px; margin-bottom: 5px;' >
-
 		   <div style='border: solid 0px black'>
-
 			   <a href='change-profile-banner.php?img=$picture_id'>
 				<img style='width: 500px' src='$picture_location' alt='broken-link'/>
 			   </a>
 			</div>
 			<div style='; border: solid 0px black'>
-
 				<a href='change-profile-banner.php?d=$picture_id'>Delete</a>
-
 			</div>
-
-		</div>
-
-		";
+		</div>";
     }
-
   ?>
-
-
 </main>
 <?php include_once($_SERVER["DOCUMENT_ROOT"]."/Pompay/footer.php"); ?>
